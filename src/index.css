@@ -1,0 +1,43 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+body {
+  height: 100%;
+}
+
+h2 {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 0.9rem;
+  line-height: 1.1rem;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+ }
+
+.main {
+  margin-bottom: auto;
+  padding: 2rem;
+ }
+

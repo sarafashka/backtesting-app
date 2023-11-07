@@ -1,7 +1,12 @@
+import ComboBox from "../../components/MaterialUI/InputMUI"
+import { symbols, types } from "../../testData/symbols";
+
 const MarketData = () => {
   return(
     <>
-    <h1>Market data</h1>
+    <h2>Market data</h2>
+    <ComboBox label='Symbol' options={symbols}/>
+    <ComboBox label='Type' options={types}/>
     </>
   )
 }

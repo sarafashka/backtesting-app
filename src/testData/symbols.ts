@@ -1,6 +1,8 @@
 export interface ISymbols {
   label: string;
 }
+export const exchanges: ISymbols[] = [{ label: 'binance' }];
+
 export const symbols: ISymbols[] = [{ label: 'btcusdt' }, { label: 'ethusdt' }];
 
 export const types: ISymbols[] = [

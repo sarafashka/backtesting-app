@@ -4,6 +4,10 @@ export interface FormRequestMarketData {
   exchange: string;
   symbol: string;
   type: string;
-  startDate: Dayjs;
-  endDate: Dayjs;
+  startDate: string;
+  endDate: string;
+}
+
+export interface MarketDataItem extends FormRequestMarketData {
+  id: string;
 }

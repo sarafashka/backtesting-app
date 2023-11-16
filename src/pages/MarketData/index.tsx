@@ -1,22 +1,23 @@
 import { Button } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
 import { Dayjs } from "dayjs";
 import { SyntheticEvent, useState } from "react";
 import DataGridDemo from "../../components/MaterialUI/DataGridMUI";
 import BasicDatePicker from "../../components/MaterialUI/DatePickerMUI";
 import ComboBox from "../../components/MaterialUI/InputMUI"
 import { exchanges, ISymbols, symbols, types } from "../../testData/symbols";
-import { FormRequestMarketData } from "../../types/types";
+import { MarketDataItem } from "../../types/types";
 import './marketdata.css';
+import { addMarketData } from "../../store/marketDataSlice/marketDataSlice";
+import { useAppDispatch } from "../../hooks/reduxTypedHooks";
 
 const MarketData = () => {
+  const dispatch = useAppDispatch();
+
   const [ExchangeValue, setExchangeValue] = useState<ISymbols | null> (null);
   const [SymbolValue, setSymbolValue] = useState<ISymbols | null> (null);
   const [TypeValue, setTypeValue] = useState<ISymbols | null> (null);
   const [StartDatevalue, setStartDateValue] = useState<Dayjs | null>(null);
   const [EndDatevalue, setEndDateValue] = useState<Dayjs | null>(null);
-  
-  const [MarketData, setMarketData] = useState<FormRequestMarketData[]>(()=> []);
 
   const handleExchangeChange = (event:SyntheticEvent, value:ISymbols | null) => {
     setExchangeValue(value);
@@ -36,19 +37,19 @@ const MarketData = () => {
   }
 
   const onSubmit = ()=> {
+    const randomId = String(Math.floor(Math.random() * 1000));
+    console.log('start',StartDatevalue?.day)
+
     if(ExchangeValue && SymbolValue && TypeValue && StartDatevalue && EndDatevalue) {
-      const requestMarketData: FormRequestMarketData =  {
+      const requestMarketData: MarketDataItem =  {
+        id: randomId,
         exchange: ExchangeValue.label,
         symbol: SymbolValue.label,
         type: TypeValue.label,
-        startDate: StartDatevalue,
-        endDate: EndDatevalue
+        startDate: JSON.stringify(StartDatevalue),
+        endDate: JSON.stringify(EndDatevalue)
     };
-    const newMarketData = [...MarketData, requestMarketData]
-      setMarketData(newMarketData);
-      localStorage.setItem('tableData', JSON.stringify(MarketData));
-     // const fromLocalStorage = JSON.parse(localStorage.getItem('tableData'));
-     // console.log(fromLocalStorage);
+    dispatch( addMarketData(requestMarketData));
     }
   }
 

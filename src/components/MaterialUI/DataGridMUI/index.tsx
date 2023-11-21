@@ -20,6 +20,9 @@ export default function DataGridDemo() {
           },
         }}
         pageSizeOptions={[PAGE_SIZE_TABLE]}
+        sx={{
+          border: 0,
+        }}
       />
     </Box>
   );

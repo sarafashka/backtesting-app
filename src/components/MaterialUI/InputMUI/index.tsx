@@ -30,11 +30,11 @@ const ComboBox:React.FC<ComboBoxProps> = ({
       disabled={isDisabled}
       id="combo-box"
       options={options}
-      sx={{ width: 300 }}
+      size='small'
       onChange={onChange}
       {...rest}
       {...reactHookFormProps}
-      renderInput={(params) => <TextField {...params} label={label}/>}
+      renderInput={(params) => <TextField {...params} label={label} variant="standard"/>}
     />
   );
 }

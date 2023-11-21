@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { FormRequestMarketData, MarketDataItem } from '../../types/types';
+import { MarketDataItem } from '../../types/types';
 
 type MarketDataState = {
   list: MarketDataItem[];

@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import backtestimg from '../../assets/img/Myapp_sample.jpeg';
-import StyledComponent from "../../components/MaterialUI/ButtonMUI";
+ // import StyledComponent from "../../components/MaterialUI/ButtonMUI";
 import { benefit, features, infoDescription, infoTitle, promoDescription, promoTitle } from "../../constants/aboutPageText";
 import './about.css';
 

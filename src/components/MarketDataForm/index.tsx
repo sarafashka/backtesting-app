@@ -18,13 +18,19 @@ const MarketDataForm = () => {
   const [EndDatevalue, setEndDateValue] = useState<Dayjs | null>(null);
 
   const handleExchangeChange = (event:SyntheticEvent, value:ISymbols | null) => {
-    setExchangeValue(value);
+    if (event) {
+          setExchangeValue(value);
+    }
   }
   const handleSymbolChange = (event:SyntheticEvent, value:ISymbols | null) => {
+    if (event) {
     setSymbolValue(value);
+    }
   }
   const handleTypeChange = (event:SyntheticEvent, value:ISymbols | null) => {
+    if (event) {
     setTypeValue(value);
+    }
   }
   const handleStartDateChange = (value: Dayjs | null) => {
     setStartDateValue(value);

@@ -32,7 +32,7 @@ const About = () => {
     
     <section className="benefit">
       {benefit.map(card => (
-        <div className="benefit__card">
+        <div  key={card.id} className="benefit__card">
           <div className="benefit__title">{card.title}</div>
           <div className="benefit__description">{card.description}</div>
         </div>
@@ -42,9 +42,9 @@ const About = () => {
 
     <section className="features">
       {features.map(card => (
-         <div className="features__card">
-         <img src={card.image} className="features__image" alt='features'/>
-         <div className="features__description">{card.description}</div>
+         <div key={card.id} className="features__card">
+          <img src={card.image} className="features__image" alt='features'/>
+          <div className="features__description">{card.description}</div>
        </div>
       ))}
     </section>

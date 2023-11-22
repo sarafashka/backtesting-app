@@ -79,7 +79,7 @@ const AppBarMUI =() => {
               }}
             >
               {PAGES_ROUTES.map((item) => (
-                <MenuItem key={item.page} onClick={handleCloseNavMenu}>
+                <MenuItem key={item.id} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">{item.page}</Typography>
                 </MenuItem>
               ))}
@@ -106,9 +106,9 @@ const AppBarMUI =() => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {PAGES_ROUTES.map((item) => (
-              <Link to={item.route}>
+              <Link key={item.id} to={item.route}>
               <Button
-                key={item.page}
+                key={item.id}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
@@ -121,7 +121,7 @@ const AppBarMUI =() => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Remy Sharp" src="" />
               </IconButton>
             </Tooltip>
             <Menu

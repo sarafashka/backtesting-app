@@ -42,7 +42,6 @@ const MarketDataForm = () => {
 
   const onSubmit = ()=> {
     const randomId = String(Math.floor(Math.random() * 1000));
-    console.log('start',StartDatevalue?.day)
 
     if(ExchangeValue && SymbolValue && TypeValue && StartDatevalue && EndDatevalue) {
       const requestMarketData: MarketDataItem =  {

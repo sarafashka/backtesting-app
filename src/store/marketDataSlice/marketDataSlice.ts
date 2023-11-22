@@ -15,7 +15,6 @@ const marketDataSlice = createSlice({
   initialState,
   reducers: {
     addMarketData(state, action: PayloadAction<MarketDataItem>) {
-      console.log(action.payload);
       state.list.push(action.payload);
     },
   },

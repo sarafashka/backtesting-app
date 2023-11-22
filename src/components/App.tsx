@@ -8,14 +8,12 @@ import Pricing from "../pages/Pricing";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <>
-      <Route path={AppRoutes.ABOUT} element={<Layout />} >
+      <Route path="/" element={<Layout />} >
         <Route index element={<About/>} />
         <Route path={AppRoutes.MARKET_DATA} element={<MarketData/>} />
         <Route path={AppRoutes.BACKTEST} element={<Backtest/>} />
         <Route path={AppRoutes.PRICING} element={<Pricing/>} />
       </Route>
-    </>
   )
 );
 

@@ -14,16 +14,19 @@ export const infoDescription =
 
 export const benefit = [
   {
+    id: '1',
     title: 'Lorem ipsum dolor sit amet',
     description:
       ' Quisque placerat quam ante, vitae accumsan velit elementum vel. Phasellus tristique felis id diam volutpat porttitor',
   },
   {
+    id: '2',
     title: 'Lorem ipsum dolor sit amet',
     description:
       ' Quisque placerat quam ante, vitae accumsan velit elementum vel. Phasellus tristique felis id diam volutpat porttitor',
   },
   {
+    id: '3',
     title: 'Lorem ipsum dolor sit amet',
     description:
       ' Quisque placerat quam ante, vitae accumsan velit elementum vel. Phasellus tristique felis id diam volutpat porttitor',
@@ -32,22 +35,27 @@ export const benefit = [
 
 export const features = [
   {
+    id: '1',
     image: icon1,
     description: 'Marketing timing',
   },
   {
+    id: '2',
     image: icon2,
     description: 'Marketing timing',
   },
   {
+    id: '3',
     image: icon3,
     description: 'Marketing timing',
   },
   {
+    id: '4',
     image: icon1,
     description: 'Marketing timing',
   },
   {
+    id: '5',
     image: icon2,
     description: 'Marketing timing',
   },

@@ -2,9 +2,11 @@ import AppBarMUI from "../MaterialUI/AppBarMUI";
 
 
 const Header = () => {
- return(<>
-    <AppBarMUI/>
- </>)
+ return(
+  <>
+      <AppBarMUI/>
+  </>
+ )
 };
 
 export default Header;

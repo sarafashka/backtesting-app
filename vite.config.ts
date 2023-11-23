@@ -5,12 +5,12 @@ import react from '@vitejs/plugin-react';
 export default defineConfig(({ command }) => {
   const config = {
     plugins: [react()],
-    base: '/',
+    base: '/backtesting-app/',
   };
 
-  if (command !== 'serve') {
-    config.base = '/react-vite-gh-pages/';
-  }
+  // if (command !== 'serve') {
+  //   config.base = '/backtesting-app/';
+  // }
 
   return config;
 });

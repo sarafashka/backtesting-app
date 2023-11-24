@@ -8,6 +8,11 @@ export default defineConfig(({ command }) => {
     base: '/backtesting-app/',
   };
 
+  // const config = {
+  //   plugins: [react()],
+  //   base: '/',
+  // };
+
   // if (command !== 'serve') {
   //   config.base = '/backtesting-app/';
   // }

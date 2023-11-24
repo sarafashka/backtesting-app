@@ -6,17 +6,6 @@ import Backtest from "../pages/Backtest";
 import MarketData from "../pages/MarketData";
 import Pricing from "../pages/Pricing";
 
-// const router = createBrowserRouter(
-//   createRoutesFromElements(
-//       <Route path="/" element={<Layout />} >
-//         <Route index element={<About/>} />
-//         <Route path={AppRoutes.MARKET_DATA} element={<MarketData/>} />
-//         <Route path={AppRoutes.BACKTEST} element={<Backtest/>} />
-//         <Route path={AppRoutes.PRICING} element={<Pricing/>} />
-//       </Route>
-//   )
-// );
-
 const App = () => {
   const routes = [
     { path: "/",

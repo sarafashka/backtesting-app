@@ -15,21 +15,21 @@ export const infoDescription =
 export const benefit = [
   {
     id: '1',
-    title: 'Lorem ipsum dolor sit amet',
+    title: 'Risk Assessment',
     description:
-      ' Quisque placerat quam ante, vitae accumsan velit elementum vel. Phasellus tristique felis id diam volutpat porttitor',
+      '  Assess the risk associated with a particular trading strategy by providing insights into drawdowns, volatility and potential losses',
   },
   {
     id: '2',
-    title: 'Lorem ipsum dolor sit amet',
+    title: 'Optimization',
     description:
-      ' Quisque placerat quam ante, vitae accumsan velit elementum vel. Phasellus tristique felis id diam volutpat porttitor',
+      ' Optimize your strategies by tweaking parameters and analyzing the historical performance under different conditions',
   },
   {
     id: '3',
-    title: 'Lorem ipsum dolor sit amet',
+    title: 'Time Saving',
     description:
-      ' Quisque placerat quam ante, vitae accumsan velit elementum vel. Phasellus tristique felis id diam volutpat porttitor',
+      ' You can save time by allowing  to quickly eliminate strategies that have historically performed poorly, focusing efforts on more promising approaches',
   },
 ];
 
@@ -42,21 +42,21 @@ export const features = [
   {
     id: '2',
     image: icon2,
-    description: 'Marketing timing',
+    description: 'Scenario Analysis',
   },
   {
     id: '3',
     image: icon3,
-    description: 'Marketing timing',
+    description: 'Customizable Timeframes',
   },
   {
     id: '4',
     image: icon1,
-    description: 'Marketing timing',
+    description: 'Historical Data',
   },
   {
     id: '5',
     image: icon2,
-    description: 'Marketing timing',
+    description: 'Data Integrity Checks',
   },
 ];

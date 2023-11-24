@@ -111,3 +111,7 @@
 .features__image{
   height: 2.5rem;
 }
+
+.features__description {
+  text-align: center;
+}

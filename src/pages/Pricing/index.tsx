@@ -1,11 +1,10 @@
-const Pricing = () => {
+import React from "react";
 
-  return(
-    <>
-    <h1>Pricing</h1>
-    </>
-  )
-}
 
+const Pricing: React.FC = () => {
+  return (
+    <>Pricing</>
+  );
+};
 
 export default Pricing;

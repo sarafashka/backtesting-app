@@ -3,21 +3,31 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { Dayjs } from 'dayjs';
+import { Controller, useFormContext } from 'react-hook-form';
 
 interface BasicDatePickerProps  {
   label: string | null;
-  onChange: (value:Dayjs | null) => void
 }
 const BasicDatePicker:React.FC<BasicDatePickerProps> = ({
-  label, onChange
+  label,
+
 }) => {
+
+  const {
+    control,
+  } = useFormContext();
+  
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DemoContainer components={['DatePicker']}>
-        <DatePicker label={label} onChange={onChange}/>
-      </DemoContainer>
-    </LocalizationProvider>
+    <Controller name='startDate' control={control}
+      render={({ field }) => (
+      <LocalizationProvider  dateAdapter={AdapterDayjs}>
+        <DemoContainer components={['DatePicker']}>
+          <DatePicker {...field } label={label} />
+        </DemoContainer>
+      </LocalizationProvider>
+      )}
+    />
+   
   );
 }
 export default BasicDatePicker;

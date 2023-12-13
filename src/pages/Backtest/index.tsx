@@ -5,4 +5,5 @@ const Backtest = () => {
     </>
   )
 }
+
 export default Backtest;

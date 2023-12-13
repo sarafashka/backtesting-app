@@ -1,9 +1,6 @@
-import React from "react";
-
-
 const Pricing: React.FC = () => {
   return (
-    <>Pricing</>
+    <h1>Pricing</h1>
   );
 };
 

@@ -1,50 +1,42 @@
-import TextField from '@mui/material/TextField';
-import { MenuItem } from '@mui/material';
-import { Controller, useFormContext } from 'react-hook-form';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { Control, Controller } from 'react-hook-form';
+import { NameFieldForm } from '../../types/types';
+import { FormValues } from '../MarketDataForm';
 
 
 interface InputMarketDataFormProps  {
-  name: string;
+  name: NameFieldForm;
   label: string | null;
   options: string[];
+  control: Control<FormValues>,
   isDisabled?: boolean;
-}
+};
 
 const InputMarketDataForm:React.FC<InputMarketDataFormProps> = ({
   name,
   label,
   options,
+  control,
   isDisabled,
-  ...rest
 }) => {
-
-  const {
-    control,
-    formState: { errors },
-  } = useFormContext();
-
   return (
-    <Controller name={name} control={control}
-           render={({ field }) => (
-           <TextField 
-              {...field }
-              label={label}
-              select
-              variant='standard'
-              {...rest}
-              defaultValue=''
-              error={!!errors[name]}
-              // helperText={errors[name]?.message ?? 'Something went wrong'}
-            >
-              {options.map((option) => (
-              <MenuItem key={option} value={option}>
+    <Controller
+      name={name}
+      control={control}
+      render={({ field }) => (
+        <FormControl fullWidth>
+          <InputLabel id="select-label">{label}</InputLabel>
+          <Select {...field} required label={label} labelId="select-label">
+            {options.map((option, index) => (
+              <MenuItem key={index} value={option}>
                 {option}
               </MenuItem>
             ))}
-        </TextField>
-           )}
-           />
-  );
+          </Select>
+        </FormControl>
+      )}
+    /> 
+  ) 
 }
 
 export default InputMarketDataForm;

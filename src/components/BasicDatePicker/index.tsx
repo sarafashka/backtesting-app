@@ -1,29 +1,32 @@
 import * as React from 'react';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { Controller, useFormContext } from 'react-hook-form';
+import { Control, Controller } from 'react-hook-form';
+import { FormValues } from '../MarketDataForm';
+import { NameFieldForm } from '../../types/types';
 
 interface BasicDatePickerProps  {
   label: string | null;
+  name: NameFieldForm;
+  control: Control<FormValues>,
 }
 const BasicDatePicker:React.FC<BasicDatePickerProps> = ({
   label,
+  name,
+  control
 
 }) => {
 
-  const {
-    control,
-  } = useFormContext();
   
   return (
-    <Controller name='startDate' control={control}
-      render={({ field }) => (
+    <Controller name={name} control={control}
+      render={({ field: { onChange}}) => (
       <LocalizationProvider  dateAdapter={AdapterDayjs}>
-        <DemoContainer components={['DatePicker']}>
-          <DatePicker {...field } label={label} />
-        </DemoContainer>
+          <DatePicker 
+          onChange={onChange}
+          label={label}
+          disableFuture />
       </LocalizationProvider>
       )}
     />

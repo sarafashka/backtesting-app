@@ -1,17 +1,16 @@
 
-import {useForm, SubmitHandler, FormProvider } from'react-hook-form';
+import {useForm, SubmitHandler } from'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Button } from "@mui/material";
 import BasicDatePicker from "../BasicDatePicker";
 import { exchanges,  symbols, types } from "../../testData/symbols";
-import { MarketDataItem} from "../../types/types";
 import { addMarketData } from "../../store/marketDataSlice/marketDataSlice";
 import { useAppDispatch } from "../../hooks/reduxTypedHooks";
 import InputMarketDataForm from '../InputMarketDataForm';
 
 
-interface FormSubmit {
+export interface FormValues {
   exchange: string;
   symbol: string;
   type: string;
@@ -19,7 +18,7 @@ interface FormSubmit {
   endDate: Date;
 }
 
-const formSchema: yup.ObjectSchema <FormSubmit> = yup.object({
+const formSchema: yup.ObjectSchema <FormValues> = yup.object({
   exchange: yup.string().required('Exchange is required'),
   symbol: yup.string().required('Symbol is required'),
   type: yup.string().required('Type is required'),
@@ -30,14 +29,28 @@ const formSchema: yup.ObjectSchema <FormSubmit> = yup.object({
 const MarketDataForm = () => {
   const dispatch = useAppDispatch();
 
-  const methods = useForm<FormSubmit>({
+  const {
+    handleSubmit,
+    reset,
+    control,
+    formState: { errors }
+  } = useForm<FormValues>({
+      defaultValues: {
+      exchange: '',
+      symbol: '',
+      type: '',
+      startDate: new Date(),
+      endDate: new Date(),
+    },
   // @ts-ignore
     resolver: yupResolver(formSchema),
+
   });
 
-  const onSubmit: SubmitHandler<FormSubmit> = (data: FormSubmit)=> {
+  const onSubmit: SubmitHandler<FormValues> = (data: FormValues)=> {
+    console.log('data', data)
     const randomId = String(Math.floor(Math.random() * 1000));
-      const requestMarketData: MarketDataItem =  {
+      const requestMarketData =  {
         id: randomId,
         exchange: data.exchange,
         symbol: data.symbol,
@@ -46,29 +59,28 @@ const MarketDataForm = () => {
         endDate: JSON.stringify(data.endDate),
     };
     dispatch( addMarketData(requestMarketData));
+    reset();
   }
   
 
   return(
     <>
-    <FormProvider {...methods}>
-    <form className="form" onSubmit={methods.handleSubmit(onSubmit)}>
+    <form className="form" onSubmit={handleSubmit(onSubmit)}>
       <div className="form__data">
         <div className="form__data_input">
-          <InputMarketDataForm name='exchange' label='Exchange' options={exchanges}/>
-          <InputMarketDataForm name='symbol' label='Symbol' options={symbols}/>
-          <InputMarketDataForm name='type' label='Type' options={types}/>
+          <InputMarketDataForm control={control} name='exchange' label='Exchange' options={exchanges}/>
+          <InputMarketDataForm control={control} name='symbol' label='Symbol' options={symbols}/>
+          <InputMarketDataForm control={control} name='type' label='Type' options={types}/>
         </div>
          <div className="form__data_datepicker">
-          <BasicDatePicker label='Start date'/>
-          <BasicDatePicker label='End date'/>
+          <BasicDatePicker control={control} name='startDate' label='Start date'/>
+          <BasicDatePicker control={control} name='endDate' label='End date'/>
         </div>
       </div>
       <div className="form__submit">
         <Button variant="contained" sx={{ width:1 }} type='submit'>Download</Button>
       </div>
     </form>
-    </FormProvider>
   
     </>
   );

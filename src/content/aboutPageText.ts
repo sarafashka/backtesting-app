@@ -1,6 +1,6 @@
-import icon1 from '../assets/svg/icon1.svg';
-import icon2 from '../assets/svg/icon2.svg';
-import icon3 from '../assets/svg/icon3.svg';
+import main1 from '../assets/svg/main1.svg';
+import main2 from '../assets/svg/main2.svg';
+import main3 from '../assets/svg/main3.svg';
 
 export const promoTitle = 'Start backtesting to succeed trading';
 
@@ -36,27 +36,27 @@ export const benefit = [
 export const features = [
   {
     id: '1',
-    image: icon1,
+    image: main1,
     description: 'Marketing timing',
   },
   {
     id: '2',
-    image: icon2,
+    image: main2,
     description: 'Scenario Analysis',
   },
   {
     id: '3',
-    image: icon3,
+    image: main3,
     description: 'Customizable Timeframes',
   },
   {
     id: '4',
-    image: icon1,
+    image: main1,
     description: 'Historical Data',
   },
   {
     id: '5',
-    image: icon2,
+    image: main2,
     description: 'Data Integrity Checks',
   },
 ];

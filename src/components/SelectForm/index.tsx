@@ -1,18 +1,18 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import { Control, Controller } from 'react-hook-form';
-import { NameFieldForm } from '../../types/types';
-import { FormValues } from '../MarketDataForm';
+import { Controller } from 'react-hook-form';
+
 
 
 interface InputMarketDataFormProps  {
-  name: NameFieldForm;
+  name: string;
   label: string | null;
   options: string[];
-  control: Control<FormValues>,
+  control: any,
+  // Control<FormValues> | Control<BacktestFormValues>,
   isDisabled?: boolean;
 };
 
-const InputMarketDataForm:React.FC<InputMarketDataFormProps> = ({
+const SelectForm:React.FC<InputMarketDataFormProps> = ({
   name,
   label,
   options,
@@ -26,7 +26,12 @@ const InputMarketDataForm:React.FC<InputMarketDataFormProps> = ({
       render={({ field }) => (
         <FormControl fullWidth>
           <InputLabel id="select-label">{label}</InputLabel>
-          <Select {...field} required label={label} labelId="select-label">
+          <Select
+            {...field}  
+            required  
+            label={label} 
+            labelId="select-label"
+            variant='standard'>
             {options.map((option, index) => (
               <MenuItem key={index} value={option}>
                 {option}
@@ -39,4 +44,4 @@ const InputMarketDataForm:React.FC<InputMarketDataFormProps> = ({
   ) 
 }
 
-export default InputMarketDataForm;
+export default SelectForm;

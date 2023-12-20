@@ -5,11 +5,13 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Control, Controller } from 'react-hook-form';
 import { FormValues } from '../MarketDataForm';
 import { NameFieldForm } from '../../types/types';
+import { BacktestFormValues } from '../BacktestForm';
 
 interface BasicDatePickerProps  {
   label: string | null;
-  name: NameFieldForm;
-  control: Control<FormValues>,
+  name: string;
+  control: any,
+  //  Control<FormValues> | Control<BacktestFormValues>,
 }
 const BasicDatePicker:React.FC<BasicDatePickerProps> = ({
   label,

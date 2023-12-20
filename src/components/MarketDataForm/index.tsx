@@ -7,7 +7,7 @@ import BasicDatePicker from "../BasicDatePicker";
 import { exchanges,  symbols, types } from "../../testData/symbols";
 import { addMarketData } from "../../store/marketDataSlice/marketDataSlice";
 import { useAppDispatch } from "../../hooks/reduxTypedHooks";
-import InputMarketDataForm from '../InputMarketDataForm';
+import SelectForm from '../SelectForm';
 
 
 export interface FormValues {
@@ -68,9 +68,9 @@ const MarketDataForm = () => {
     <form className="form" onSubmit={handleSubmit(onSubmit)}>
       <div className="form__data">
         <div className="form__data_input">
-          <InputMarketDataForm control={control} name='exchange' label='Exchange' options={exchanges}/>
-          <InputMarketDataForm control={control} name='symbol' label='Symbol' options={symbols}/>
-          <InputMarketDataForm control={control} name='type' label='Type' options={types}/>
+          <SelectForm control={control} name='exchange' label='Exchange' options={exchanges}/>
+          <SelectForm control={control} name='symbol' label='Symbol' options={symbols}/>
+          <SelectForm control={control} name='type' label='Type' options={types}/>
         </div>
          <div className="form__data_datepicker">
           <BasicDatePicker control={control} name='startDate' label='Start date'/>

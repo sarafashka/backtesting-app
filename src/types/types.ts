@@ -10,4 +10,11 @@ export interface MarketDataItem extends FormRequestMarketData {
   id: string;
 }
 
-export type NameFieldForm = 'symbol' | 'type' | 'exchange' | 'startDate' | 'endDate';
+export type NameFieldForm =
+  | 'symbol'
+  | 'type'
+  | 'exchange'
+  | 'startDate'
+  | 'endDate'
+  | 'BacktestExchange'
+  | 'BacktestSymbol';

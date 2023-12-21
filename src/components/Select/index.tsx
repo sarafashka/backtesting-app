@@ -17,7 +17,7 @@ const SelectForm:React.FC<InputMarketDataFormProps> = ({
   label,
   options,
   control,
-  isDisabled,
+  // isDisabled,
 }) => {
   return (
     <Controller

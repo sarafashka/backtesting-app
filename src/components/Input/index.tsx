@@ -17,13 +17,12 @@ const InputForm:React.FC<InputFormProps> = ({
   label,
   control,
   type,
-  isDisabled,
 }) => {
   return (
     <Controller
       name={name}
       control={control}
-      render={({ field: {ref, onChange}, fieldState: {error}  }) => (
+      render={({ field: { onChange}, fieldState: {error}  }) => (
            <TextField
               // {...field} 
               id={name}

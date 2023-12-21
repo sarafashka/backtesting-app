@@ -34,7 +34,6 @@ const BacktestForm:React.FC = () => {
       handleSubmit,
       reset,
       control,
-      formState: { errors }
     } = useForm<BacktestFormValues>({
         defaultValues: {
         backtestExchange: '',

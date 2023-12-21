@@ -31,7 +31,7 @@ const SelectForm:React.FC<InputMarketDataFormProps> = ({
             required  
             label={label} 
             labelId="select-label"
-            variant='standard'>
+            variant='outlined'>
             {options.map((option, index) => (
               <MenuItem key={index} value={option}>
                 {option}

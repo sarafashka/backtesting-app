@@ -1,30 +1,14 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { Button, Checkbox } from "@mui/material";
+import { Button } from "@mui/material";
 import { exchanges, symbols, types } from "../../testData/symbols";
 import BasicDatePicker from "../BasicDatePicker";
-import SelectForm from "../SelectForm";
-import InputForm from "../InputForm";
-import CheckboxForm from "../CheckboxForm";
-
-export interface BacktestFormValues {
-  backtestExchange: string;
-  backtestSymbol: string;
-  backtestPeriod: string;
-  chartPeriod: string;
-  startDate: Date;
-  endDate: Date;
-  deposit: number;
-  commission: number;
-  priceLow: number;
-  priceHigh: number;
-  gridsCount: number;
-  gridTrigger: number;
-  gridStopLoss: number;
-  gridTakeProfit: number;
-  sellAll: boolean | undefined;
-}
+import SelectForm from "../Select";
+import InputForm from "../Input";
+import CheckboxForm from "../Checkbox";
+import { BacktestFormValues } from "../../types/types";
+import './backtestForm.css';
 
   const formSchema: yup.ObjectSchema <BacktestFormValues> = yup.object().shape({
     backtestExchange: yup.string().required('Exchange is required'),
@@ -83,16 +67,18 @@ const BacktestForm:React.FC = () => {
     <>
      <form className="backtest-form" onSubmit={handleSubmit(onSubmit)}>
       <div className="backtest-form__data">
-        <div className="backtest-form_select">
-          <SelectForm control={control} name='backtestExchange' label='Exchange' options={exchanges}/>
-          <SelectForm control={control} name='backtestSymbol' label='Symbol' options={symbols}/>
-          <SelectForm control={control} name='backtestPeriod' label='Backtest Period' options={types}/>
-          <SelectForm control={control} name='chartPeriod' label='Chart Period' options={types}/>
-        </div>
-          <div className="backtest-form_datepicker">
-          <BasicDatePicker control={control} name='startDate' label='Start date'/>
-          <BasicDatePicker control={control} name='endDate' label='End date'/>
-        </div>
+        {/* <div className="backtest-form_option"> */}
+          <div className="backtest-form_select">
+            <SelectForm control={control} name='backtestExchange' label='Exchange' options={exchanges}/>
+            <SelectForm control={control} name='backtestSymbol' label='Symbol' options={symbols}/>
+            <SelectForm control={control} name='backtestPeriod' label='Backtest Period' options={types}/>
+            <SelectForm control={control} name='chartPeriod' label='Chart Period' options={types}/>
+          </div>
+            <div className="backtest-form_datepicker">
+            <BasicDatePicker control={control} name='startDate' label='Start date'/>
+            <BasicDatePicker control={control} name='endDate' label='End date'/>
+          </div>
+        {/* </div> */}
         <div className="backtest-form_input">
           <InputForm control={control} name='deposit' label='Deposit'/>
           <InputForm control={control} name='commission' label='Commission'/>
@@ -103,12 +89,12 @@ const BacktestForm:React.FC = () => {
           <InputForm control={control} name='gridStopLoss' label='Grid Stop Loss'/>
           <InputForm control={control} name='gridTakeProfit' label='Grid Take Profit'/>
         </div> 
+        </div>
         <div className="backtest-form__checkbox"> 
           <CheckboxForm control={control} label='Sel All' name='sellAll' />
          </div>
-      </div>
       <div className="backtest-form__submit">
-        <Button variant="contained" sx={{ width:1 }} type='submit'>Download</Button>
+        <Button variant="contained" sx={{ width:1 }} type='submit'>Run grid backtest</Button>
       </div>
     </form>
     </>

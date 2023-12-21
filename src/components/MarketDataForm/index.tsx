@@ -7,18 +7,10 @@ import BasicDatePicker from "../BasicDatePicker";
 import { exchanges,  symbols, types } from "../../testData/symbols";
 import { addMarketData } from "../../store/marketDataSlice/marketDataSlice";
 import { useAppDispatch } from "../../hooks/reduxTypedHooks";
-import SelectForm from '../SelectForm';
+import SelectForm from '../Select';
+import { MarketDataFormValues } from '../../types/types';
 
-
-export interface FormValues {
-  exchange: string;
-  symbol: string;
-  type: string;
-  startDate: Date;
-  endDate: Date;
-}
-
-const formSchema: yup.ObjectSchema <FormValues> = yup.object({
+const formSchema: yup.ObjectSchema <MarketDataFormValues> = yup.object({
   exchange: yup.string().required('Exchange is required'),
   symbol: yup.string().required('Symbol is required'),
   type: yup.string().required('Type is required'),
@@ -32,9 +24,8 @@ const MarketDataForm = () => {
   const {
     handleSubmit,
     reset,
-    control,
-    formState: { errors }
-  } = useForm<FormValues>({
+    control
+  } = useForm<MarketDataFormValues>({
       defaultValues: {
       exchange: '',
       symbol: '',
@@ -47,7 +38,7 @@ const MarketDataForm = () => {
 
   });
 
-  const onSubmit: SubmitHandler<FormValues> = (data: FormValues)=> {
+  const onSubmit: SubmitHandler<MarketDataFormValues> = (data: MarketDataFormValues)=> {
     console.log('data', data)
     const randomId = String(Math.floor(Math.random() * 1000));
       const requestMarketData =  {

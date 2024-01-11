@@ -13,7 +13,7 @@ const About = () => {
       <div className="promo__description">{promoDescription}</div>
        <div className="promo__go">
         {/* <StyledComponent></StyledComponent> */}
-        <Button variant="contained">Start backtesting</Button>
+        <Button variant="contained">Backtest</Button>
         <Button variant="contained">Login</Button>
        </div>
     </section>
@@ -21,7 +21,7 @@ const About = () => {
    
     <section className="info">
       <div className="info__graph">
-        <img src={backtestimg} alt="Backtest graph image" />
+        {/* <img className="info__graph-img" src={backtestimg} alt="Backtest graph image" /> */}
       </div>
       <div className="info__text">
         <h2 className="info__title">{infoTitle}</h2>

@@ -27,13 +27,23 @@
  .promo__go {
   width: 50%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
  }
 
  .info {
+   width: 100%;
    display: flex;
+   justify-content: center;
    gap: 4rem;
-   padding: 0 2rem 0 0;
+ }
+
+ .info__graph { 
+  width: 40%;
+  height: 20rem;
+  background-image: url('../../assets/img/Myapp_sample.jpeg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: right;
  }
 
  .info__text {
@@ -49,10 +59,11 @@
 }
 
 .benefit {
+  width: 90%;
   position: relative;
   display: flex;
-  gap: 5rem;
-  justify-content: space-around;
+  gap: 2rem;
+  justify-content: center;
   padding: 0 2rem 0;
   margin-top: 6rem;
 }
@@ -86,8 +97,9 @@
 
 .features {
   display: flex;
-  justify-content: space-between;
-  gap: 1rem;
+  justify-content: center;
+  gap: 3rem;
+  flex-wrap: wrap;
   padding: 0 2rem 0;
   margin: 6rem 0 12rem;
 }
@@ -118,4 +130,87 @@
 
 .features__description {
   text-align: center;
+}
+
+@media (max-width: 1700px)  {
+
+}
+
+@media (max-width: 1300px)  { 
+  .features {
+    max-width: 60rem;
+  }
+  .benefit__title {
+    font-size: 2.2rem;
+  }
+}
+/* @media (max-width: 1280px)  {
+  
+} */
+
+ @media (max-width: 960px)  {
+  .benefit__title {
+    font-size: 2.2rem;
+  }
+  .info__title {
+    font-size: 2.5rem;
+  }
+
+  .features__card {  
+    height: 11.7rem;
+    padding-top: 2rem;
+  }
+  
+}
+
+@media (max-width: 850px)  {
+}
+
+ @media (max-width: 767px)  {
+  .promo {
+    max-width: 100%;
+  }
+  .info {
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .info__graph {
+    width: 80%;
+    background-position-x: center;
+  }
+
+  .info__text {
+    max-width: 90%;
+    text-align: center;
+  }
+
+  .benefit {
+    width: 75%;
+    flex-wrap: wrap;
+  }
+
+  .features {  
+    padding: 0;
+  }
+  
+} 
+
+@media (max-width: 480px)  {
+  .promo__description {
+    width: 90%;
+  }
+
+  .promo__go {
+      width: 90%;
+  }
+
+  .benefit {
+    width: 95%;
+  }
+}
+
+@media (max-width: 320px)  {
+  
 }

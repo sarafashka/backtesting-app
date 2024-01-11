@@ -7,7 +7,7 @@ export const promoTitle = 'Start backtesting to succeed trading';
 export const promoDescription =
   'MyApp’s analytics tools provide users with precise, actionable and timely market data to help you trade more effectively';
 
-export const infoTitle = 'A comprehensive analytics solution';
+export const infoTitle = 'Comprehensive analytics solution';
 
 export const infoDescription =
   'We are building an infrastructure to provide an easy-to-use platform for users to track market data';

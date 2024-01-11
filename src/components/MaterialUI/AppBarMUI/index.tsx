@@ -79,7 +79,7 @@ const AppBarMUI =() => {
               }}
             >
               {PAGES_ROUTES.map((item) => (
-                <MenuItem key={item.id} onClick={handleCloseNavMenu}>
+                <MenuItem key={item.id} onClick={handleCloseNavMenu} component={Link} to={item.route}>
                   <Typography textAlign="center">{item.page}</Typography>
                 </MenuItem>
               ))}

@@ -77,9 +77,32 @@
 .plan__soon_description {
   font-size: 2rem;
   font-weight: 600;
+  line-height: 2.2rem;
   padding-bottom: 2rem;
   color: #8E8B8B;
+  text-align: center;
 }
+
 .plan__soon-img {
   width: 30rem;
+}
+
+ @media (max-width: 960px)  {
+  
+}
+
+@media (max-width: 850px)  {
+}
+
+ @media (max-width: 767px)  {
+
+  
+} 
+
+@media (max-width: 480px)  {
+
+}
+
+@media (max-width: 320px)  {
+  
 }

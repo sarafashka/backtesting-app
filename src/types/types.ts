@@ -44,3 +44,21 @@ export type NameFieldForm =
   | 'endDate'
   | 'BacktestExchange'
   | 'BacktestSymbol';
+
+export interface UserLogin {
+  username: string;
+  password: string;
+}
+
+export interface SignInResponse {
+  access_token: string;
+  token_type: string;
+  expires_in: Number;
+}
+
+export type LoadingStatus = 'idle' | 'loading' | 'succeeded' | 'failed';
+
+export interface AuthInitialState {
+  loginStatus: LoadingStatus;
+  registerStatus: LoadingStatus;
+}

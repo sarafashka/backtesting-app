@@ -1,10 +1,27 @@
 import { Button } from "@mui/material";
+import { login } from "../../store/authSlice";
 import backtestimg from '../../assets/img/Myapp_sample.jpeg';
- // import StyledComponent from "../../components/MaterialUI/ButtonMUI";
 import { benefit, features, infoDescription, infoTitle, promoDescription, promoTitle } from "../../content/aboutPageText";
 import './about.css';
+import { useNavigate } from "react-router-dom";
+import AppRoutes from "../../constants/routes";
+import { UserLogin } from "../../types/types";
+import { useAppDispatch } from "../../hooks/reduxTypedHooks";
 
 const About = () => {
+
+  const userData: UserLogin = {
+    username: 'admin',
+    password: 'ntvwru94up34u',
+  };
+  
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const handleClick = async () => {
+    dispatch(login(userData))
+  };
+
   return(
     <>
     <div className="promo__wrapper">
@@ -12,9 +29,10 @@ const About = () => {
       <h1 className="promo__title">{promoTitle}</h1>
       <div className="promo__description">{promoDescription}</div>
        <div className="promo__go">
-        {/* <StyledComponent></StyledComponent> */}
-        <Button variant="contained">Backtest</Button>
-        <Button variant="contained">Login</Button>
+        <Button variant="contained" onClick={() => {
+            navigate(AppRoutes.BACKTEST);
+          }} >Backtest</Button>
+        <Button variant="contained" onClick={handleClick}>Login</Button>
        </div>
     </section>
     </div>

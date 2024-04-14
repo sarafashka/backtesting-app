@@ -1,12 +1,20 @@
-export interface FormRequestMarketData {
+// export interface FormRequestMarketData {
+//   exchange: string;
+//   symbol: string;
+//   type: string;
+//   startDate: string;
+//   endDate: string;
+// }
+
+export interface RequestedMarketData {
   exchange: string;
   symbol: string;
-  type: string;
-  startDate: string;
-  endDate: string;
+  market_data_type: string;
+  date_start: string;
+  date_end: string;
 }
 
-export interface MarketDataItem extends FormRequestMarketData {
+export interface DownloadedMarketData extends RequestedMarketData {
   id: string;
 }
 
@@ -62,3 +70,8 @@ export interface AuthInitialState {
   loginStatus: LoadingStatus;
   registerStatus: LoadingStatus;
 }
+
+export type MarketDataRequest = {
+  page: string;
+  perPage: string;
+};

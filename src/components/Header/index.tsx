@@ -1,4 +1,4 @@
-import AppBarMUI from "../MaterialUI/AppBarMUI";
+import AppBarMUI from "../AppBarMUI";
 
 
 const Header = () => {

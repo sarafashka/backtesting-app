@@ -3,7 +3,8 @@ import * as React from 'react';
 import {Link} from "react-router-dom";
 import  MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/TrendingUp';
-import { PAGES_ROUTES } from "../../../constants/pages";
+import { PAGES_ROUTES } from "../../constants/pages";
+import { authService } from "../../api/authService";
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
@@ -118,7 +119,7 @@ const AppBarMUI =() => {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          {authService.isUserLogged() ? <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="" />
@@ -147,6 +148,8 @@ const AppBarMUI =() => {
               ))}
             </Menu>
           </Box>
+          : <div>Login</div>
+          }
         </Toolbar>
       </Container>
     </AppBar>

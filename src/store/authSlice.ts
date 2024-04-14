@@ -14,7 +14,6 @@ export const login = createAsyncThunk(
   async (userData: UserLogin, { rejectWithValue }) => {
     try {
       const signInResponse = await authService.loginUser(userData);
-      console.log('signInResponse:', signInResponse);
       tokenService.setToken(signInResponse.data.access_token);
     } catch (e) {
       const error = e as AxiosError;

@@ -5,7 +5,7 @@ import * as yup from 'yup';
 import { Button } from "@mui/material";
 import BasicDatePicker from "../BasicDatePicker";
 import { exchanges,  symbols, types } from "../../testData/symbols";
-import { addMarketData } from "../../store/marketDataSlice/marketDataSlice";
+import { addMarketData } from "../../store/marketDataSlice";
 import { useAppDispatch } from "../../hooks/reduxTypedHooks";
 import SelectForm from '../Select';
 import { MarketDataFormValues } from '../../types/types';

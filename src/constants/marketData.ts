@@ -9,17 +9,17 @@ export const COLUMNS: GridColDef[] = [
     width: 150,
   },
   {
-    field: 'type',
+    field: 'market_data_type',
     headerName: 'Market Type',
     width: 150,
   },
   {
-    field: 'startDate',
+    field: 'date_start',
     headerName: 'Start Date',
     width: 110,
   },
   {
-    field: 'endDate',
+    field: 'date_end',
     headerName: 'End Date',
     width: 110,
   },

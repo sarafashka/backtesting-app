@@ -1,9 +1,19 @@
 
+import { useEffect } from "react";
 import MarketDataForm from "../../components/MarketDataForm";
-import DataGridDemo from "../../components/MaterialUI/DataGridMUI";
+import MarketDataGrid from "../../components/MarketDataGrid";
+import { useAppDispatch } from "../../hooks/reduxTypedHooks";
+import { getMarketData } from "../../store/marketDataSlice";
 import './marketdata.css';
+import { INITIAL_PAGE, INITIAL_PER_PAGE } from "../../constants/constants";
 
 const MarketData = () => {
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getMarketData({ page: INITIAL_PAGE, perPage: INITIAL_PER_PAGE }));
+}, []);
 
   return(
     <>
@@ -14,11 +24,10 @@ const MarketData = () => {
     </div>
     <div className="data__container">
        <div className="data-grid">
-          <DataGridDemo/>
+          <MarketDataGrid/>
        </div> 
+      </div>
     </div>
-    </div>
-  
   
     </>
   )

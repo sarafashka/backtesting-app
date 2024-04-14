@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import marketDataReducer from './marketDataSlice/marketDataSlice';
+import marketDataReducer from './marketDataSlice';
 import { authReducer } from './authSlice';
 
 export const store = configureStore({

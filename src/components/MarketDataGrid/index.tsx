@@ -1,11 +1,11 @@
 import Box from '@mui/material/Box';
 import { DataGrid} from '@mui/x-data-grid';
-import { COLUMNS, PAGE_SIZE_TABLE } from '../../../constants/marketData';
-import { useAppSelector } from '../../../hooks/reduxTypedHooks';
+import { COLUMNS, PAGE_SIZE_TABLE } from '../../constants/marketData';
+import { useAppSelector } from '../../hooks/reduxTypedHooks';
 
 
 
-export default function DataGridDemo() {
+export default function MarketDataGrid() {
   const rows = useAppSelector(state => state.marketData.list);
   return (
     <Box sx={{ height: 400, width: '100%' }}>

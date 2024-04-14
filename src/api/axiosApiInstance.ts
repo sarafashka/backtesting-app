@@ -10,7 +10,7 @@ axiosApiInstance.interceptors.request.use(
   async (config) => {
     config.headers = {
       Authorization: tokenService.authToken(),
-      'Content-Type': 'application/json',
+      // 'Content-Type': 'application/json',
     } as AxiosRequestHeaders;
     return config;
   },

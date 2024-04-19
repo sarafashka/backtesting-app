@@ -1,7 +1,8 @@
 export enum endpoints {
   BASE_URL = 'https://api.backtest.casa',
-  EXCHANGES = '/exchange/exchanges',
+  EXCHANGES = 'api/exchange/exchanges',
   SIGN_IN = '/auth/sign-in',
-  SYMBOLS = '/exchange/symbols',
+  SYMBOLS = 'api/exchange/symbols',
+  TYPES = '/api/exchange/mdts_from_symbol?symbol=',
   MARKET_DATA = '/api/market-data/downloaded',
 }

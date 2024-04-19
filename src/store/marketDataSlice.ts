@@ -8,16 +8,7 @@ type MarketDataState = {
 };
 
 const initialState: MarketDataState = {
-  list: [
-    {
-      id: '1',
-      exchange: 'test',
-      symbol: 'test',
-      market_data_type: 'test',
-      date_start: 'test',
-      date_end: 'test',
-    },
-  ],
+  list: [],
 };
 
 export const getMarketData = createAsyncThunk(

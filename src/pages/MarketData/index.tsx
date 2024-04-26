@@ -1,6 +1,6 @@
 
 import { useEffect } from "react";
-import MarketDataForm from "../../components/MarketDataForm";
+import MarketDataForm from "../../components/MarketDataForm/index";
 import MarketDataGrid from "../../components/MarketDataGrid";
 import { useAppDispatch } from "../../hooks/reduxTypedHooks";
 import { getMarketData } from "../../store/marketDataSlice";

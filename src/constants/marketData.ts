@@ -1,4 +1,5 @@
 import { GridColDef } from '@mui/x-data-grid';
+import { INITIAL_PER_PAGE } from './constants';
 
 export const COLUMNS: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 90 },
@@ -25,4 +26,4 @@ export const COLUMNS: GridColDef[] = [
   },
 ];
 
-export const PAGE_SIZE_TABLE = 5;
+export const PAGE_SIZE_TABLE = Number(INITIAL_PER_PAGE);

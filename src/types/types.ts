@@ -1,12 +1,4 @@
-// export interface FormRequestMarketData {
-//   exchange: string;
-//   symbol: string;
-//   type: string;
-//   startDate: string;
-//   endDate: string;
-// }
-
-export interface RequestedMarketData {
+export interface FormMarketData {
   exchange: string;
   symbol: string;
   market_data_type: string;
@@ -14,7 +6,7 @@ export interface RequestedMarketData {
   date_end: string;
 }
 
-export interface DownloadedMarketData extends RequestedMarketData {
+export interface DownloadedMarketData extends FormMarketData {
   id: string;
 }
 

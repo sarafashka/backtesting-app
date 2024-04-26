@@ -37,12 +37,12 @@ const AsynchronousSelect:React.FC<InputMarketDataFormProps> = ({
 
   useEffect(() => {
     let active = true;
-    console.log('data for request', dataForRequest)
     if (options.length === 0 && dataForRequest != request) {
       if (dataForRequest) setRequest(dataForRequest);
       (async () => {
         let listOfOptions;
-        if (name === 'exchange' && getOptions) {
+        if (name != 'symbol' && getOptions) {
+          console.log('get options')
           listOfOptions = await getOptions();
         } else if (getOptionsWithData && dataForRequest) {
           listOfOptions = await getOptionsWithData(dataForRequest);
@@ -76,7 +76,7 @@ const AsynchronousSelect:React.FC<InputMarketDataFormProps> = ({
       name={name}
       control={control}
       rules={{
-        required: "this field is required"
+        required: "This field is required"
       }}
       render={({ field, fieldState: { error } }) => {
         const { onChange, value, ref } = field;
@@ -91,7 +91,6 @@ const AsynchronousSelect:React.FC<InputMarketDataFormProps> = ({
             }}
             onClose={() => {
               setOpen(false);
-              console.log('onclose');
               isSelected && isSelected()
             }}
 
@@ -123,7 +122,7 @@ const AsynchronousSelect:React.FC<InputMarketDataFormProps> = ({
             )}
           />
            {error ? (
-                <span style={{ color: "red" }}>{error.message}</span>
+                <span style={{ color: "red", fontSize: '14px', lineHeight: '0' }}>{error.message}</span>
               ) : null}
           </>
         )}}
@@ -131,4 +130,4 @@ const AsynchronousSelect:React.FC<InputMarketDataFormProps> = ({
   );
 }
 
-export default AsynchronousSelect;
+ export default AsynchronousSelect;

@@ -4,12 +4,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Button } from "@mui/material";
 import BasicDatePicker from "../BasicDatePicker";
-import { addMarketData } from "../../store/marketDataSlice";
+import { addMarketData, downloadMarketData } from "../../store/marketDataSlice";
 import { useAppDispatch } from "../../hooks/reduxTypedHooks";
 import { MarketDataFormValues } from '../../types/types';
-import AsynchronousSelect from '../Autocomplete';
+import AsynchronousSelect from '../Autocomplete/index';
 import { marketDataService } from '../../api/marketDataService';
 import {  useState } from 'react';
+import { getDateFromJs } from '../utils/utils';
 
 
 // const formSchema: yup.ObjectSchema <MarketDataFormValues> = yup.object({
@@ -45,7 +46,6 @@ const MarketDataForm = () => {
     reset,
     control,
     getValues,
-    watch,
   } = useForm<MarketDataFormValues>({
       defaultValues: {
       exchange: '',
@@ -60,17 +60,17 @@ const MarketDataForm = () => {
   });
 
   const onSubmit: SubmitHandler<MarketDataFormValues> = (data: MarketDataFormValues)=> {
-    console.log('data', data)
-    const randomId = String(Math.floor(Math.random() * 1000));
-      const requestMarketData =  {
-        id: randomId,
+      const downloadingMarketData =  {
         exchange: data.exchange,
         symbol: data.symbol,
         market_data_type: data.type,
-        date_start: JSON.stringify(data.startDate),
-        date_end: JSON.stringify(data.endDate),
+        date_start: getDateFromJs(data.startDate),
+        date_end: getDateFromJs(data.endDate),
     };
-    dispatch( addMarketData(requestMarketData));
+ 
+    console.log(downloadMarketData);
+    // dispatch(downloadMarketData(requestMarketData))
+    // dispatch( addMarketData(requestMarketData));
     reset();
   }
 
@@ -100,9 +100,8 @@ const MarketDataForm = () => {
             control={control}
             name='type'
             label='Type'
-            getOptionsWithData ={marketDataService.getTypes}
+            getOptions={marketDataService.getTypes}
             isDisabled={symbolSelected.isDisabled}
-            dataForRequest={symbolSelected.value}
           />
         </div>
          <div className="form__data_datepicker">

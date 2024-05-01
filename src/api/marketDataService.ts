@@ -18,7 +18,7 @@ export const marketDataService = {
       `${endpoints.MARKET_DATA}?page=${data.page}&per_page=${data.perPage}`
     );
   },
-  downloadMarketData(data: FormMarketData): Promise<AxiosResponse<string>> {
-    return axiosApiInstance.post(`${endpoints.DOWNLOAD_MARKET_DATA}`);
+  downloadMarketData(data: FormMarketData): Promise<AxiosResponse<DownloadedMarketData>> {
+    return axiosApiInstance.post(`${endpoints.DOWNLOAD_MARKET_DATA}`, data);
   },
 };

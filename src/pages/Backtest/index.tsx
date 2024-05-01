@@ -1,4 +1,5 @@
 import backtestimg from '../../assets/img/Myapp_sample.jpeg';
+import BacktestChart from '../../components/BacktestChart';
 import BacktestForm from '../../components/BacktestForm';
 import BacktestTable from '../../components/BacktestTable';
 import './backtest.css';
@@ -17,11 +18,7 @@ const Backtest: React.FC = () => {
       <div className='backtest__result'>
         
         <section className="backtest__chart">
-         <div className='data__container'>
-          <div className="info__graph">
-            <img src={backtestimg} alt="Backtest graph image" />
-          </div>
-        </div>
+         <BacktestChart/>
         </section>
 
       <section className="backtest__metrics">

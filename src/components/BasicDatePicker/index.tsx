@@ -26,7 +26,8 @@ const BasicDatePicker:React.FC<BasicDatePickerProps> = ({
           <DatePicker 
           onChange={onChange}
           label={label}
-          disableFuture />
+          disableFuture 
+          format="DD.MM.YYYY"/>
       </LocalizationProvider>
       )}
     />

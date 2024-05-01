@@ -2,13 +2,17 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Button } from "@mui/material";
-import { exchanges, symbols, types } from "../../testData/symbols";
 import BasicDatePicker from "../BasicDatePicker";
-import SelectForm from "../Select";
 import InputForm from "../Input";
 import CheckboxForm from "../Checkbox";
 import { BacktestFormValues } from "../../types/types";
 import './backtestForm.css';
+import { getExchangesBT, getMetrics, getSymbolsBT, getTypesBT } from "../../store/backtestSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxTypedHooks";
+import { useEffect } from "react";
+import AutocompleteSelect from "../AutocompleteSelect";
+import { getDateFromJs } from "../utils/utils";
+import { backtestService } from "../../api/backtestService";
 
   const formSchema: yup.ObjectSchema <BacktestFormValues> = yup.object().shape({
     backtestExchange: yup.string().required('Exchange is required'),
@@ -17,23 +21,29 @@ import './backtestForm.css';
     chartPeriod: yup.string().required('Chart period is required'),
     startDate: yup.date().default(() => new Date()).required('Date is required'),
     endDate: yup.date().default(() => new Date()).required('Date is required'),
-    deposit: yup.number().positive().required('Field is required'),
-    commission: yup.number().positive().required('Field is required'),
-    priceLow: yup.number().positive().required('Field is required'),
-    priceHigh: yup.number().positive().required('Field is required'),
-    gridsCount: yup.number().positive().required('Field is required'),
-    gridTrigger: yup.number().positive().required('Field is required'),
-    gridStopLoss: yup.number().positive().required('Field is required'),
-    gridTakeProfit: yup.number().positive().required('Field is required'),
+    deposit: yup.number().moreThan(-1, 'Must to be positive').required('Field is required'),
+    commission: yup.number().moreThan(-1, 'Must to be positive').required('Field is required'),
+    priceLow: yup.number().moreThan(-1, 'Must to be positive').required('Field is required'),
+    priceHigh: yup.number().moreThan(-1, 'Must to be positive').required('Field is required'),
+    gridsCount: yup.number().moreThan(-1, 'Must to be positive').required('Field is required'),
+    gridTrigger: yup.number().moreThan(-1, 'Must to be positive').required('Field is required'),
+    gridStopLoss: yup.number().moreThan(-1, 'Must to be positive'),
+    gridTakeProfit: yup.number().moreThan(-1, 'Must to be positive'),
     sellAll: yup.boolean(),
   })
 
 const BacktestForm:React.FC = () => {
+
+  const dispatch = useAppDispatch();
+  const backtestFilters = useAppSelector(state => state.backtest);
+  const { exchanges, symbols, mdt } = backtestFilters;
+
   
     const {
       handleSubmit,
       reset,
       control,
+      getValues
     } = useForm<BacktestFormValues>({
         defaultValues: {
         backtestExchange: '',
@@ -56,22 +66,90 @@ const BacktestForm:React.FC = () => {
       resolver: yupResolver(formSchema),
   
     });
+
+    useEffect(() => {
+      dispatch(getExchangesBT());
+    }, [dispatch]);
   
-    const onSubmit: SubmitHandler<BacktestFormValues> = (data: BacktestFormValues)=> {
+    const onSubmit: SubmitHandler<BacktestFormValues> = async (data: BacktestFormValues)=> {
       console.log('backtest', data)
-      reset();
+      const formatedBacktestFormValues = {
+        exchange: data.backtestExchange,
+        symbol: data.backtestSymbol,
+        market_data_type: data.backtestPeriod,
+        chart_market_data_type: data.chartPeriod,
+        date_start: getDateFromJs(data.startDate),
+        date_end: getDateFromJs(data.endDate),
+        deposit: String(data.deposit),
+        commission: String(data.commission),
+        price_low: String(data.priceLow),
+        price_high: String(data.priceHigh),
+        grids_count: String(data.gridsCount),
+        grid_trigger: String(data.gridTrigger),
+        grid_sl: data.gridStopLoss?  String(data.gridStopLoss) : '',
+        grid_tp: data.gridTakeProfit ? String(data.gridTakeProfit) : '',
+        sell_all: Boolean(data.sellAll),
+      }
+
+      console.log('1 formatted data', formatedBacktestFormValues);
+      let id;
+      try {
+        const response = await backtestService.backtestRun(formatedBacktestFormValues);
+        id = response.data.id;
+        console.log('2 id', id)
+      } catch (error) {
+          throw new Error ('Some backtest problems')
+      }
+      dispatch(getMetrics(id));
+
+      // reset();
+    }
+
+    const getSymbolsOptions = () => {
+      dispatch(getSymbolsBT());
+    }
+
+    const getTypesOptions = () => {
+      const selectSymbol = getValues('backtestSymbol');
+      dispatch(getTypesBT(selectSymbol));
     }
 
   return(
     <>
      <form className="backtest-form" onSubmit={handleSubmit(onSubmit)}>
       <div className="backtest-form__data">
-        {/* <div className="backtest-form_option"> */}
           <div className="backtest-form_select">
-            <SelectForm control={control} name='backtestExchange' label='Exchange' options={exchanges}/>
-            <SelectForm control={control} name='backtestSymbol' label='Symbol' options={symbols}/>
-            <SelectForm control={control} name='backtestPeriod' label='Backtest Period' options={types}/>
-            <SelectForm control={control} name='chartPeriod' label='Chart Period' options={types}/>
+            <AutocompleteSelect
+              control={control}
+              name='backtestExchange'
+              label='Exchange'
+              options={exchanges.options}
+              isDisabled={exchanges.isDisabled}
+              onClose={getSymbolsOptions}
+              />
+
+            <AutocompleteSelect
+              control={control}
+              name='backtestSymbol'
+              label='Symbol'
+              options={symbols.options}
+              isDisabled={symbols.isDisabled}
+              onClose={getTypesOptions}
+              />
+             <AutocompleteSelect
+              control={control}
+              name='backtestPeriod'
+              label='Backtest Period'
+              options={mdt.options}
+              isDisabled={mdt.isDisabled}
+              />
+              <AutocompleteSelect
+              control={control}
+              name='chartPeriod'
+              label='ChartPeriod'
+              options={mdt.options}
+              isDisabled={mdt.isDisabled}
+              />
           </div>
             <div className="backtest-form_datepicker">
             <BasicDatePicker control={control} name='startDate' label='Start date'/>
@@ -101,3 +179,5 @@ const BacktestForm:React.FC = () => {
 }
 
 export default BacktestForm;
+
+

@@ -30,7 +30,7 @@ export const getMarketData = createAsyncThunk(
 );
 
 export const downloadMarketData = createAsyncThunk(
-  'marketData/DownloadMarketData',
+  'marketData/downloadMarketData',
   async function (data: FormMarketData, { rejectWithValue }) {
     try {
       const response = await marketDataService.downloadMarketData(data);

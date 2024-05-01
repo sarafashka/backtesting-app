@@ -1,12 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { marketDataService } from '../api/marketDataService';
 import { AxiosError } from 'axios';
-
-type SelectType = {
-  options: string[];
-  isDisabled: boolean;
-  value: string;
-};
+import { SelectType } from '../types/types';
 
 type FiltersMarketDataState = {
   exchanges: SelectType;
@@ -44,7 +39,7 @@ const initialState: FiltersMarketDataState = {
 
 export const getExchanges = createAsyncThunk(
   'filtersMarketData/getExchanges',
-  async function ({}, { rejectWithValue }) {
+  async function (_, { rejectWithValue }) {
     console.log('2 get exchanges');
     try {
       const response = await marketDataService.getExchanges();
@@ -58,7 +53,7 @@ export const getExchanges = createAsyncThunk(
 
 export const getTypes = createAsyncThunk(
   'filtersMarketData/getTypes',
-  async function ({}, { rejectWithValue }) {
+  async function (_, { rejectWithValue }) {
     console.log('2 get types');
     try {
       const response = await marketDataService.getTypes();
@@ -97,4 +92,4 @@ const filtersMarketDataSlice = createSlice({
   },
 });
 
-export default filtersMarketDataSlice.reducer;
+export const filtersMarketDataReducer = filtersMarketDataSlice.reducer;

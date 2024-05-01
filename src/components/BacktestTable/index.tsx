@@ -1,7 +1,9 @@
 import { Box } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { DataGrid } from "@mui/x-data-grid";
-import { metrics } from "../../testData/symbols";
+// import { metrics } from "../../testData/symbols";
+import { useAppSelector } from "../../hooks/reduxTypedHooks";
+import { formatMetricsToRows } from "../utils/utils";
 
 const columns =   [
   { field: 'name', headerName: 'Name', width: 170 },
@@ -10,8 +12,12 @@ const columns =   [
 
 
 const BacktestTable: React.FC = () => {
+
+  const metrics = useAppSelector(state => state.backtest.metrics); 
+
   return(
     <>
+    {metrics &&
     <Box sx={{ height: '100%', width: '100%' }}>
       <DataGrid
       getRowClassName={(params) => {
@@ -37,7 +43,7 @@ const BacktestTable: React.FC = () => {
       col: grey,
     }}
 
-        rows={metrics}
+        rows={formatMetricsToRows(metrics)}
         columns={columns}
 
         disableColumnFilter
@@ -51,7 +57,8 @@ const BacktestTable: React.FC = () => {
        
       />
     </Box>
-    </>
+  }
+   </>
   )
 };
 

@@ -8,7 +8,6 @@ interface InputMarketDataFormProps  {
   label: string | null;
   options: string[];
   control: any,
-  // Control<FormValues> | Control<BacktestFormValues>,
   isDisabled?: boolean;
 };
 
@@ -17,7 +16,6 @@ const SelectForm:React.FC<InputMarketDataFormProps> = ({
   label,
   options,
   control,
-  // isDisabled,
 }) => {
   return (
     <Controller

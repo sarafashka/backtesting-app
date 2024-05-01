@@ -46,9 +46,7 @@ const AutocompleteSelect:React.FC<InputMarketDataFormProps> = ({
             onChange={(event: any, newValue) => {
               onChange(newValue || null);
             }}
-            onClose={() => {onClose && onClose(); 
-              console.log('close')}
-            }
+            onClose={() => {onClose && onClose()}}
             disabled={isDisabled}
             renderInput={(params) => (
               <TextField

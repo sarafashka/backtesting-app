@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { BacktestMetrics, FormBacktest, SelectType } from '../types/types';
 import { AxiosError } from 'axios';
 import { backtestService } from '../api/backtestService';
-import { symbols } from '../testData/symbols';
 
 type backtestState = {
   exchanges: SelectType;
@@ -88,7 +87,6 @@ export const getMetrics = createAsyncThunk(
   'backtest/getMetrics',
   async function (id: number, { rejectWithValue }) {
     try {
-      console.log('3 dispatch metrics');
       const response = await backtestService.getMetrics(id);
       return response.data;
     } catch (error) {
@@ -117,9 +115,7 @@ const backtestSlice = createSlice({
       state.mdt.isDisabled = false;
       state.isLoading = false;
     });
-    builder.addCase(backtestRun.fulfilled, (state, action) => {
-      console.log('backtest run', action.payload);
-    });
+    builder.addCase(backtestRun.fulfilled, (state, action) => {});
     builder.addCase(getMetrics.fulfilled, (state, action) => {
       state.metrics = action.payload;
       state.isLoading = false;

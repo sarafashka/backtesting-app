@@ -72,8 +72,7 @@ const BacktestForm:React.FC = () => {
     }, [dispatch]);
   
     const onSubmit: SubmitHandler<BacktestFormValues> = async (data: BacktestFormValues)=> {
-      console.log('backtest', data)
-      const formatedBacktestFormValues = {
+      const formattedBacktestFormValues = {
         exchange: data.backtestExchange,
         symbol: data.backtestSymbol,
         market_data_type: data.backtestPeriod,
@@ -91,18 +90,15 @@ const BacktestForm:React.FC = () => {
         sell_all: Boolean(data.sellAll),
       }
 
-      console.log('1 formatted data', formatedBacktestFormValues);
       let id;
       try {
-        const response = await backtestService.backtestRun(formatedBacktestFormValues);
+        const response = await backtestService.backtestRun(formattedBacktestFormValues);
         id = response.data.id;
-        console.log('2 id', id)
       } catch (error) {
           throw new Error ('Some backtest problems')
       }
       dispatch(getMetrics(id));
-
-      // reset();
+      reset();
     }
 
     const getSymbolsOptions = () => {

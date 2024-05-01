@@ -4,41 +4,28 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Button } from "@mui/material";
 import BasicDatePicker from "../BasicDatePicker";
-import { addMarketData, downloadMarketData } from "../../store/marketDataSlice";
-import { useAppDispatch } from "../../hooks/reduxTypedHooks";
+import { downloadMarketData, getExchanges, getMarketData, getSymbols, getTypes } from "../../store/marketDataSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxTypedHooks";
 import { MarketDataFormValues } from '../../types/types';
-import AsynchronousSelect from '../Autocomplete/index';
-import { marketDataService } from '../../api/marketDataService';
-import {  useState } from 'react';
+import {  useEffect } from 'react';
 import { getDateFromJs } from '../utils/utils';
+import AutocompleteSelect from '../AutocompleteSelect';
+import { INITIAL_PAGE, INITIAL_PER_PAGE } from '../../constants/constants';
 
 
-// const formSchema: yup.ObjectSchema <MarketDataFormValues> = yup.object({
-//   exchange: yup.string().required('Exchange is required'),
-//   symbol: yup.string().required('Symbol is required'),
-//   type: yup.string().required('Type is required'),
-//   startDate: yup.date().default(() => new Date()).required('Date is required'),
-//   endDate: yup.date().default(() => new Date()).required('Date is required'),
-// })
-interface IFormInput {
-  exchange: string;
-  symbol: string;
-  type: string;
-  startDate: Date;
-  endDate: Date;
-}
-
-type InputSelected = {
-  value: string,
-  isDisabled: boolean
-}
+const formSchema: yup.ObjectSchema <MarketDataFormValues> = yup.object({
+  exchange: yup.string().required('Exchange is required'),
+  symbol: yup.string().required('Symbol is required'),
+  type: yup.string().required('Type is required'),
+  startDate: yup.date().default(() => new Date()).required('Date is required'),
+  endDate: yup.date().default(() => new Date()).required('Date is required'),
+})
 
 const MarketDataForm = () => {
 
-  const [exchangeSelected, setExchangeSelected] = useState<InputSelected>({value:'', isDisabled: true});
-  const [symbolSelected, setSymbolSelected] = useState<InputSelected>({value:'', isDisabled: true});
-
   const dispatch = useAppDispatch();
+  const marketDataFilters = useAppSelector(state => state.marketData);
+  const { exchanges, symbols, mdt } = marketDataFilters;
 
 
   const {
@@ -53,25 +40,32 @@ const MarketDataForm = () => {
       type: '',
       startDate: new Date(),
       endDate: new Date(),
-    }
+    },
   // @ts-ignore
-    // resolver: yupResolver(formSchema),
+    resolver: yupResolver(formSchema),
 
   });
 
+  useEffect(() => {
+    dispatch(getExchanges());
+    dispatch(getTypes());
+  }, [dispatch]);
+
   const onSubmit: SubmitHandler<MarketDataFormValues> = (data: MarketDataFormValues)=> {
-      const downloadingMarketData =  {
+      const formattedMarketData =  {
         exchange: data.exchange,
         symbol: data.symbol,
         market_data_type: data.type,
         date_start: getDateFromJs(data.startDate),
         date_end: getDateFromJs(data.endDate),
     };
- 
-    console.log(downloadMarketData);
-    // dispatch(downloadMarketData(requestMarketData))
-    // dispatch( addMarketData(requestMarketData));
+    dispatch(downloadMarketData(formattedMarketData));
+    dispatch(getMarketData({ page: INITIAL_PAGE, perPage: INITIAL_PER_PAGE }));//change after downloadMarketData will be response new market data
     reset();
+  }
+  const getSymbolsOptions = () => {
+    const selectedExchange = getValues('exchange');
+    dispatch(getSymbols(selectedExchange));
   }
 
   return(
@@ -79,30 +73,27 @@ const MarketDataForm = () => {
     <form className="form" onSubmit={handleSubmit(onSubmit)}>
       <div className="form__data">
         <div className="form__data_input">
-          <AsynchronousSelect 
-            control={control}
-            name='exchange'
-            label='Exchange'
-            getOptions ={marketDataService.getExchanges}
-            isDisabled={false}
-            isSelected={() => setExchangeSelected({isDisabled: false, value: getValues('exchange')})}
-          />
-          <AsynchronousSelect 
-            control={control}
-            name='symbol'
-            label='Symbol'
-            getOptionsWithData ={marketDataService.getSymbols}
-            isDisabled={exchangeSelected.isDisabled}
-            dataForRequest={exchangeSelected.value}
-            isSelected={() => setSymbolSelected({isDisabled: false, value: getValues('symbol')})}
-          />
-            <AsynchronousSelect 
-            control={control}
-            name='type'
-            label='Type'
-            getOptions={marketDataService.getTypes}
-            isDisabled={symbolSelected.isDisabled}
-          />
+          <AutocompleteSelect 
+              control={control}
+              name='exchange'
+              label='Exchange'
+              isDisabled={exchanges.isDisabled}
+              options={exchanges.options}
+              onClose={getSymbolsOptions}/>
+
+          <AutocompleteSelect 
+              control={control}
+              name='symbol'
+              label='Symbol'
+              isDisabled={symbols.isDisabled}
+              options={symbols.options}/>
+
+          <AutocompleteSelect 
+              control={control}
+              name='type'
+              label='Type'
+              isDisabled={mdt.isDisabled}
+              options={mdt.options}/>
         </div>
          <div className="form__data_datepicker">
           <BasicDatePicker control={control} name='startDate' label='Start date'/>

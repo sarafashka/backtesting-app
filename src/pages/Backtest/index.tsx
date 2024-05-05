@@ -1,4 +1,4 @@
-import backtestimg from '../../assets/img/Myapp_sample.jpeg';
+// import backtestimg from '../../assets/img/Myapp_sample.jpeg';
 import BacktestChart from '../../components/BacktestChart';
 import BacktestForm from '../../components/BacktestForm';
 import BacktestTable from '../../components/BacktestTable';

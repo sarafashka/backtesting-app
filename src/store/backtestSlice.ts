@@ -147,7 +147,7 @@ const backtestSlice = createSlice({
       state.mdt.isDisabled = false;
       state.isLoading = false;
     });
-    builder.addCase(backtestRun.fulfilled, (state, action) => {});
+    // builder.addCase(backtestRun.fulfilled, (state, action) => {});
     builder.addCase(getMetrics.fulfilled, (state, action) => {
       state.metrics = action.payload;
       state.isLoading = false;

@@ -1,6 +1,5 @@
 import { Button } from "@mui/material";
 import { login } from "../../store/authSlice";
-import backtestimg from '../../assets/img/Myapp_sample.jpeg';
 import { benefit, features, infoDescription, infoTitle, promoDescription, promoTitle } from "../../content/aboutPageText";
 import './about.css';
 import { useNavigate } from "react-router-dom";

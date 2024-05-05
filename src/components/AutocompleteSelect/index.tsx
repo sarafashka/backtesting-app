@@ -1,6 +1,6 @@
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import CircularProgress from '@mui/material/CircularProgress';
+//import CircularProgress from '@mui/material/CircularProgress';
 import React from 'react';
 import { Controller } from 'react-hook-form';
 
@@ -44,6 +44,7 @@ const AutocompleteSelect:React.FC<InputMarketDataFormProps> = ({
               value || null
             }
             onChange={(event: any, newValue) => {
+              console.log(event)
               onChange(newValue || null);
             }}
             onClose={() => {onClose && onClose()}}

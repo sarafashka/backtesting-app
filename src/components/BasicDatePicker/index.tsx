@@ -18,9 +18,9 @@ const BasicDatePicker:React.FC<BasicDatePickerProps> = ({
   label,
   name,
   control,
-  minDate,
-  maxDate,
-  isDisabled
+  //  minDate,
+  // maxDate,
+  // isDisabled
 
 }) => {
 

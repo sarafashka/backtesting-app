@@ -7,6 +7,7 @@ import { useAppSelector } from '../../hooks/reduxTypedHooks';
 
 export default function MarketDataGrid() {
   const rows = useAppSelector(state => state.marketData.list);
+  
   return (
     <Box sx={{ height: 400, width: '100%' }}>
       <DataGrid

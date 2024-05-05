@@ -124,3 +124,8 @@ export interface BacktestMetrics {
 export interface BacktestId {
   id: number;
 }
+
+export interface BacktestDates {
+  date_start: string;
+  date_end: string;
+}

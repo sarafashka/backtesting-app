@@ -7,6 +7,11 @@ type backtestState = {
   exchanges: SelectType;
   symbols: SelectType;
   mdt: SelectType;
+  dates: {
+    startDate: Date;
+    endDate: Date;
+    isDisabled: boolean;
+  };
   metrics: BacktestMetrics | null;
   isLoading: boolean;
 };
@@ -26,6 +31,11 @@ const initialState: backtestState = {
     options: [],
     isDisabled: true,
     value: '',
+  },
+  dates: {
+    startDate: new Date(),
+    endDate: new Date(),
+    isDisabled: true,
   },
   metrics: null,
   isLoading: false,
@@ -62,6 +72,22 @@ export const getTypesBT = createAsyncThunk(
   async function (symbol: string, { rejectWithValue }) {
     try {
       const response = await backtestService.getTypes(symbol);
+      return response;
+    } catch (error) {
+      const axiosError = <AxiosError>error;
+      return rejectWithValue(axiosError.response?.data);
+    }
+  }
+);
+
+export const getDatesBT = createAsyncThunk(
+  'backtest/getDatesBT',
+  async function (
+    { exchange, symbol, mdt }: { exchange: string; symbol: string; mdt: string },
+    { rejectWithValue }
+  ) {
+    try {
+      const response = await backtestService.getDates(exchange, symbol, mdt);
       return response;
     } catch (error) {
       const axiosError = <AxiosError>error;
@@ -112,6 +138,12 @@ const backtestSlice = createSlice({
     });
     builder.addCase(getTypesBT.fulfilled, (state, action) => {
       state.mdt.options = action.payload.data;
+      state.mdt.isDisabled = false;
+      state.isLoading = false;
+    });
+    builder.addCase(getDatesBT.fulfilled, (state, action) => {
+      state.dates.endDate = new Date(action.payload.data.date_end);
+      state.dates.startDate = new Date(action.payload.data.date_start);
       state.mdt.isDisabled = false;
       state.isLoading = false;
     });

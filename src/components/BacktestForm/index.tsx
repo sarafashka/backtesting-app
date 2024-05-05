@@ -36,8 +36,7 @@ const BacktestForm:React.FC = () => {
 
   const dispatch = useAppDispatch();
   const backtestFilters = useAppSelector(state => state.backtest);
-  const { exchanges, symbols, mdt } = backtestFilters;
-
+  const { exchanges, symbols, mdt, dates } = backtestFilters;
   
     const {
       handleSubmit,
@@ -148,8 +147,8 @@ const BacktestForm:React.FC = () => {
               />
           </div>
             <div className="backtest-form_datepicker">
-            <BasicDatePicker control={control} name='startDate' label='Start date'/>
-            <BasicDatePicker control={control} name='endDate' label='End date'/>
+            <BasicDatePicker control={control} name='startDate' label='Start date' minDate={dates.startDate}/>
+            <BasicDatePicker control={control} name='endDate' label='End date'  maxDate={dates.endDate}/>
           </div>
         {/* </div> */}
         <div className="backtest-form_input">

@@ -8,6 +8,7 @@ export enum endpoints {
   DOWNLOAD_MARKET_DATA = '/api/market-data/download',
   BACKTEST_SYMBOLS = '/api/exchange/local-symbols',
   BAKCTEST_TYPES = '/api/exchange/mdts_from_symbol?symbol=',
+  BACKTEST_DATES = '/api/market-data/date-input?',
   BACKTEST_RUN = '/api/backtest/grid/run',
   BACKTEST_METRICS = '/api/backtest/result/metrics?id=',
   BACKTEST_CHART = '/api/backtest/result/chart?id=',

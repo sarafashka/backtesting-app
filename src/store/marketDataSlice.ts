@@ -114,13 +114,17 @@ const marketDataSlice = createSlice({
       state.list = action.payload.data;
     });
     builder.addCase(downloadMarketData.fulfilled, (state, action) => {
-      //  to do adding to common Market Data table
+      const newMarketData = action.payload.data;
+      newMarketData.exchange = newMarketData.exchange.toLowerCase();
+      newMarketData.symbol = newMarketData.symbol.toLowerCase();
+      state.list.push(newMarketData);
+      state.isLoading = false;
     });
     builder.addCase(getExchanges.fulfilled, (state, action) => {
       state.exchanges.options = action.payload.data;
       state.symbols.isDisabled = false;
       state.isLoading = false;
-      // state.exchanges.value = action.meta.arg; //в запрос символов
+      // state.exchanges.value = action.meta.arg; // to check symbols before request; if the value has not changing, options will  not change
     });
     builder.addCase(getTypes.fulfilled, (state, action) => {
       state.mdt.options = action.payload.data;

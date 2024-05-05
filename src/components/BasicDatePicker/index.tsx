@@ -9,12 +9,18 @@ interface BasicDatePickerProps  {
   label: string | null;
   name: string;
   control: any,
-  //  Control<FormValues> | Control<BacktestFormValues>,
+  minDate?: Date;
+  maxDate?: Date;
+  isDisabled?:boolean;
+
 }
 const BasicDatePicker:React.FC<BasicDatePickerProps> = ({
   label,
   name,
-  control
+  control,
+  minDate,
+  maxDate,
+  isDisabled
 
 }) => {
 
@@ -27,7 +33,11 @@ const BasicDatePicker:React.FC<BasicDatePickerProps> = ({
           onChange={onChange}
           label={label}
           disableFuture 
-          format="DD.MM.YYYY"/>
+          format="DD.MM.YYYY"
+          // minDate={minDate}
+          // maxDate={maxDate}
+          // disabled={isDisabled}
+        />
       </LocalizationProvider>
       )}
     />

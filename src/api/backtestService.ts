@@ -1,7 +1,7 @@
 import axiosApiInstance from './axiosApiInstance';
 import { endpoints } from '../constants/endpoints';
 import { AxiosResponse } from 'axios';
-import { BacktestId, BacktestMetrics, BacktestRunResponse, FormBacktest } from '../types/types';
+import { BacktestDates, BacktestId, BacktestMetrics, FormBacktest } from '../types/types';
 
 export const backtestService = {
   getExchanges(): Promise<AxiosResponse<string[]>> {
@@ -12,6 +12,11 @@ export const backtestService = {
   },
   getTypes(symbol: string): Promise<AxiosResponse<string[]>> {
     return axiosApiInstance.get(`${endpoints.BAKCTEST_TYPES}${symbol}`);
+  },
+  getDates(exchange: string, symbol: string, mdt: string): Promise<AxiosResponse<BacktestDates>> {
+    return axiosApiInstance.get(
+      `${endpoints.BACKTEST_DATES}exchange=${exchange}&symbol=${symbol}&market_data_type=${mdt}`
+    );
   },
   backtestRun(data: FormBacktest): Promise<AxiosResponse<BacktestId>> {
     return axiosApiInstance.post(`${endpoints.BACKTEST_RUN}`, data);

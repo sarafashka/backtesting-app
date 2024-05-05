@@ -1,4 +1,4 @@
-import { Navigate, RouterProvider,  createBrowserRouter} from "react-router-dom";
+import { RouterProvider,  createBrowserRouter} from "react-router-dom";
 import Layout from "./Layout";
 import AppRoutes from "../constants/routes";
 import About from "../pages/About";
@@ -6,8 +6,7 @@ import Backtest from "../pages/Backtest";
 import MarketData from "../pages/MarketData";
 import Pricing from "../pages/Pricing";
 import Auth from "../pages/Auth";
-import { Settings } from "@mui/icons-material";
-import { authService } from "../api/authService";
+// import { authService } from "../api/authService";
 
 const App = () => {
   const routes = [

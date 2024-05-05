@@ -3,8 +3,9 @@ enum AppRoutes {
   MARKET_DATA = '/market-data',
   BACKTEST = '/backtest',
   PRICING = '/pricing',
+  AUTH = '/auth',
 }
 
 export default AppRoutes;
 
-//export const publicRoutes = ['/', '/auth'];
+export const publicRoutes = ['/', '/auth'];

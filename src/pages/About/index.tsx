@@ -1,25 +1,12 @@
 import { Button } from "@mui/material";
-import { login } from "../../store/authSlice";
 import { benefit, features, infoDescription, infoTitle, promoDescription, promoTitle } from "../../content/aboutPageText";
 import './about.css';
 import { useNavigate } from "react-router-dom";
 import AppRoutes from "../../constants/routes";
-import { UserLogin } from "../../types/types";
-import { useAppDispatch } from "../../hooks/reduxTypedHooks";
 
 const About = () => {
 
-  const userData: UserLogin = {
-    username: 'admin',
-    password: 'ntvwru94up34u',
-  };
-  
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
-  const handleClick = async () => {
-    dispatch(login(userData))
-  };
 
   return(
     <>
@@ -31,7 +18,8 @@ const About = () => {
         <Button variant="contained" onClick={() => {
             navigate(AppRoutes.BACKTEST);
           }} >Backtest</Button>
-        <Button variant="contained" onClick={handleClick}>Login</Button>
+        {/* <Button variant="contained" onClick={handleClick}>Login</Button> */}
+        <Button variant="contained" href={AppRoutes.AUTH}> Login</Button> 
        </div>
     </section>
     </div>

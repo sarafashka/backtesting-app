@@ -5,6 +5,7 @@ import  MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/TrendingUp';
 import { PAGES_ROUTES } from "../../constants/pages";
 import { authService } from "../../api/authService";
+import AppRoutes from "../../constants/routes";
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
@@ -148,7 +149,7 @@ const AppBarMUI =() => {
               ))}
             </Menu>
           </Box>
-          : <div>Login</div>
+          : <Button color="inherit" href={AppRoutes.AUTH}> Login</Button> 
           }
         </Toolbar>
       </Container>

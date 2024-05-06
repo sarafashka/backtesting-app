@@ -7,7 +7,7 @@ import InputForm from "../Input";
 import CheckboxForm from "../Checkbox";
 import { BacktestFormValues } from "../../types/types";
 import './backtestForm.css';
-import { getExchangesBT, getMetrics, getSymbolsBT, getTypesBT } from "../../store/backtestSlice";
+import { getDatesBT, getExchangesBT, getMetrics, getSymbolsBT, getTypesBT } from "../../store/backtestSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxTypedHooks";
 import { useEffect } from "react";
 import AutocompleteSelect from "../AutocompleteSelect";
@@ -109,6 +109,15 @@ const BacktestForm:React.FC = () => {
       dispatch(getTypesBT(selectSymbol));
     }
 
+    const getDatesOptions = () => {
+      const data = {
+        exchange: getValues('backtestExchange'),
+        symbol: getValues('backtestSymbol'),
+        mdt: getValues('backtestPeriod')
+      }
+      dispatch(getDatesBT(data));
+    }
+
   return(
     <>
      <form className="backtest-form" onSubmit={handleSubmit(onSubmit)}>
@@ -137,6 +146,7 @@ const BacktestForm:React.FC = () => {
               label='Backtest Period'
               options={mdt.options}
               isDisabled={mdt.isDisabled}
+              onClose={getDatesOptions}
               />
               <AutocompleteSelect
               control={control}
@@ -147,8 +157,22 @@ const BacktestForm:React.FC = () => {
               />
           </div>
             <div className="backtest-form_datepicker">
-            <BasicDatePicker control={control} name='startDate' label='Start date' minDate={dates.startDate}/>
-            <BasicDatePicker control={control} name='endDate' label='End date'  maxDate={dates.endDate}/>
+            <BasicDatePicker
+              control={control}
+              name='startDate'
+              label='Start date'
+              minDate={dates.startDate}
+              maxDate={dates.endDate}
+              isDisabled={dates.isDisabled}
+            />
+            <BasicDatePicker
+              control={control}
+              name='endDate'
+              label='End date'
+              minDate={dates.startDate}
+              maxDate={dates.endDate}
+              isDisabled={dates.isDisabled}
+            />
           </div>
         {/* </div> */}
         <div className="backtest-form_input">

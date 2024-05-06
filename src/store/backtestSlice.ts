@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { BacktestMetrics, FormBacktest, SelectType } from '../types/types';
+import { BacktestDatesRequest, BacktestMetrics, FormBacktest, SelectType } from '../types/types';
 import { AxiosError } from 'axios';
 import { backtestService } from '../api/backtestService';
 
@@ -8,8 +8,8 @@ type backtestState = {
   symbols: SelectType;
   mdt: SelectType;
   dates: {
-    startDate: Date;
-    endDate: Date;
+    startDate: string;
+    endDate: string;
     isDisabled: boolean;
   };
   metrics: BacktestMetrics | null;
@@ -33,8 +33,8 @@ const initialState: backtestState = {
     value: '',
   },
   dates: {
-    startDate: new Date(),
-    endDate: new Date(),
+    startDate: '',
+    endDate: '',
     isDisabled: true,
   },
   metrics: null,
@@ -82,12 +82,9 @@ export const getTypesBT = createAsyncThunk(
 
 export const getDatesBT = createAsyncThunk(
   'backtest/getDatesBT',
-  async function (
-    { exchange, symbol, mdt }: { exchange: string; symbol: string; mdt: string },
-    { rejectWithValue }
-  ) {
+  async function (data: BacktestDatesRequest, { rejectWithValue }) {
     try {
-      const response = await backtestService.getDates(exchange, symbol, mdt);
+      const response = await backtestService.getDates(data);
       return response;
     } catch (error) {
       const axiosError = <AxiosError>error;
@@ -142,9 +139,9 @@ const backtestSlice = createSlice({
       state.isLoading = false;
     });
     builder.addCase(getDatesBT.fulfilled, (state, action) => {
-      state.dates.endDate = new Date(action.payload.data.date_end);
-      state.dates.startDate = new Date(action.payload.data.date_start);
-      state.mdt.isDisabled = false;
+      state.dates.endDate = action.payload.data.date_end;
+      state.dates.startDate = action.payload.data.date_start;
+      state.dates.isDisabled = false;
       state.isLoading = false;
     });
     // builder.addCase(backtestRun.fulfilled, (state, action) => {});

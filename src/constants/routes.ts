@@ -8,4 +8,4 @@ enum AppRoutes {
 
 export default AppRoutes;
 
-export const publicRoutes = ['/', '/auth'];
+export const publicRoutes = ['/', '/auth', '/pricing'];

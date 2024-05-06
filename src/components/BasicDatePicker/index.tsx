@@ -3,14 +3,15 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Controller } from 'react-hook-form';
+import dayjs from 'dayjs';
 // import {MarketDataFormValues, BacktestFormValues} from '../../types/types';
 
 interface BasicDatePickerProps  {
   label: string | null;
   name: string;
   control: any,
-  minDate?: Date;
-  maxDate?: Date;
+  minDate?: string;
+  maxDate?: string;
   isDisabled?:boolean;
 
 }
@@ -18,9 +19,9 @@ const BasicDatePicker:React.FC<BasicDatePickerProps> = ({
   label,
   name,
   control,
-  //  minDate,
-  // maxDate,
-  // isDisabled
+   minDate,
+  maxDate,
+  isDisabled
 
 }) => {
 
@@ -34,9 +35,10 @@ const BasicDatePicker:React.FC<BasicDatePickerProps> = ({
           label={label}
           disableFuture 
           format="DD.MM.YYYY"
-          // minDate={minDate}
-          // maxDate={maxDate}
-          // disabled={isDisabled}
+          minDate={dayjs(minDate)}
+          maxDate={dayjs(maxDate)}
+          disabled={isDisabled}
+          
         />
       </LocalizationProvider>
       )}

@@ -68,6 +68,12 @@ export type MarketDataRequest = {
   perPage: string;
 };
 
+export type BacktestDatesRequest = {
+  exchange: string;
+  symbol: string;
+  mdt: string;
+};
+
 export type SelectType = {
   options: string[];
   isDisabled: boolean;

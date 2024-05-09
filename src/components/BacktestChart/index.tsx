@@ -1,14 +1,15 @@
-// import { Button } from "@mui/material";
-// import Chart from "../../testData/chartBT";
+import Plot from "react-plotly.js";
+import { getDataForChart } from "./getDataForChart";
 
 const BacktestChart: React.FC = () => {
 
+  const dataForChart = getDataForChart();
 
-  return(
-    <>
-    {/* <Chart/> */}
-  
-    </>
-  )
+    return (
+      <Plot
+        data={dataForChart}
+        layout={ {width: 1000, height: 800} }
+      />
+    );
 }
 export default BacktestChart;

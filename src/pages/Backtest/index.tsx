@@ -1,10 +1,13 @@
-// import backtestimg from '../../assets/img/Myapp_sample.jpeg';
 import BacktestChart from '../../components/BacktestChart';
 import BacktestForm from '../../components/BacktestForm';
 import BacktestTable from '../../components/BacktestTable';
+import { useAppSelector } from '../../hooks/reduxTypedHooks';
 import './backtest.css';
 
 const Backtest: React.FC = () => {
+
+  const klines = useAppSelector((state) => state.backtest.klines);
+  
   return(
     <>
     <h2>Select the parameters and run the backtest</h2>
@@ -17,9 +20,11 @@ const Backtest: React.FC = () => {
 
       <div className='backtest__result'>
         
+      { klines && 
         <section className="backtest__chart">
-         <BacktestChart/>
-        </section>
+          <BacktestChart/>
+        </section> 
+      } 
 
       <section className="backtest__metrics">
           <BacktestTable/>

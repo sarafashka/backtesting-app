@@ -1,5 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { BacktestDatesRequest, BacktestMetrics, FormBacktest, SelectType } from '../types/types';
+import {
+  BacktestData,
+  BacktestDatesRequest,
+  BacktestMetrics,
+  FormBacktest,
+  FormMarketData,
+  Kline,
+  SelectType,
+} from '../types/types';
 import { AxiosError } from 'axios';
 import { backtestService } from '../api/backtestService';
 
@@ -13,6 +21,8 @@ type backtestState = {
     isDisabled: boolean;
   };
   metrics: BacktestMetrics | null;
+  data: BacktestData | null;
+  klines: Kline[] | null;
   isLoading: boolean;
 };
 
@@ -38,6 +48,8 @@ const initialState: backtestState = {
     isDisabled: true,
   },
   metrics: null,
+  data: null,
+  klines: null,
   isLoading: false,
 };
 
@@ -119,6 +131,19 @@ export const getMetrics = createAsyncThunk(
   }
 );
 
+export const getKlines = createAsyncThunk(
+  'backtest/getKlines',
+  async function (data: FormMarketData, { rejectWithValue }) {
+    try {
+      const response = await backtestService.getKlines(data);
+      return response.data;
+    } catch (error) {
+      const axiosError = <AxiosError>error;
+      return rejectWithValue(axiosError.response?.data);
+    }
+  }
+);
+
 const backtestSlice = createSlice({
   name: 'backtest',
   initialState,
@@ -147,6 +172,10 @@ const backtestSlice = createSlice({
     // builder.addCase(backtestRun.fulfilled, (state, action) => {});
     builder.addCase(getMetrics.fulfilled, (state, action) => {
       state.metrics = action.payload;
+      state.isLoading = false;
+    });
+    builder.addCase(getKlines.fulfilled, (state, action) => {
+      state.klines = action.payload;
       state.isLoading = false;
     });
   },

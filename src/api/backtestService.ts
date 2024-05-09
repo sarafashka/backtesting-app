@@ -7,6 +7,8 @@ import {
   BacktestId,
   BacktestMetrics,
   FormBacktest,
+  FormMarketData,
+  Kline,
 } from '../types/types';
 
 export const backtestService = {
@@ -33,4 +35,9 @@ export const backtestService = {
   getChart(id: number): Promise<AxiosResponse<string>> {
     return axiosApiInstance.get(`${endpoints.BACKTEST_CHART}${id}`);
   }, //change type of response
+  getKlines(data: FormMarketData): Promise<AxiosResponse<Kline[]>> {
+    return axiosApiInstance.get(
+      `${endpoints.BACKTEST_KLINES}exchange=${data.exchange}&symbol=${data.symbol}&market_data_type=${data.market_data_type}&date_start=${data.date_start}&date_end=${data.date_end}`
+    );
+  },
 };

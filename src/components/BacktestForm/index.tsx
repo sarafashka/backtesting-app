@@ -7,7 +7,7 @@ import InputForm from "../Input";
 import CheckboxForm from "../Checkbox";
 import { BacktestFormValues } from "../../types/types";
 import './backtestForm.css';
-import { getDatesBT, getExchangesBT, getMetrics, getSymbolsBT, getTypesBT } from "../../store/backtestSlice";
+import { getDatesBT, getExchangesBT, getKlines, getMetrics, getSymbolsBT, getTypesBT } from "../../store/backtestSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxTypedHooks";
 import { useEffect } from "react";
 import AutocompleteSelect from "../AutocompleteSelect";
@@ -96,7 +96,17 @@ const BacktestForm:React.FC = () => {
       } catch (error) {
           throw new Error ('Some backtest problems')
       }
-      dispatch(getMetrics(id));
+      dispatch(getMetrics(id))
+
+      const requestKlines = {
+        exchange: data.backtestExchange,
+        symbol: data.backtestSymbol,
+        market_data_type: data.backtestPeriod,
+        date_start: getDateFromJs(data.startDate),
+        date_end: getDateFromJs(data.endDate),
+
+      }
+      dispatch(getKlines(requestKlines));
       reset();
     }
 

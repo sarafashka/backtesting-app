@@ -22,3 +22,16 @@ export const PAGES_ROUTES = [
     route: AppRoutes.PRICING,
   },
 ];
+
+export const PROFILE_PAGES_ROUTES = [
+  {
+    id: '1',
+    page: 'My Backtesting',
+    route: AppRoutes.MY_BACKTESTING,
+  },
+  {
+    id: '2',
+    page: 'Profile',
+    route: AppRoutes.PROFILE,
+  },
+];

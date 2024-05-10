@@ -15,13 +15,15 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useAppDispatch } from '../../hooks/reduxTypedHooks';
 import { login } from '../../store/authSlice';
-import { UserLogin } from '../../types/types';
+import { useNavigate } from 'react-router-dom';
 
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function Auth() {
+
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -31,18 +33,9 @@ export default function Auth() {
       username: String(data.get('usernameInput')),
       password: String(data.get('passwordInput'))
     }
-    dispatch(login(userData))
+    dispatch(login(userData));
+    // navigate(-2);
   };
-
-  // const userData: UserLogin = {
-  //   username: 'admin',
-  //   password: 'ntvwru94up34u',
-  // };
-  
-
-  // const handleClick = async () => {
-  //   dispatch(login(userData))
-  // };
 
   return (
     <ThemeProvider theme={defaultTheme}>

@@ -3,11 +3,12 @@ import * as React from 'react';
 import {Link} from "react-router-dom";
 import  MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/TrendingUp';
-import { PAGES_ROUTES } from "../../constants/pages";
+import { PAGES_ROUTES, PROFILE_PAGES_ROUTES } from "../../constants/pages";
 import { authService } from "../../api/authService";
 import AppRoutes from "../../constants/routes";
+import { tokenService } from "../../api/tokenService";
 
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+// const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const AppBarMUI =() => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -121,11 +122,9 @@ const AppBarMUI =() => {
           </Box>
 
           {authService.isUserLogged() ? <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="" />
               </IconButton>
-            </Tooltip>
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
@@ -142,11 +141,14 @@ const AppBarMUI =() => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+              {PROFILE_PAGES_ROUTES.map((item) => (
+                <MenuItem key={item.id} onClick={handleCloseUserMenu} component={Link} to={item.route}>
+                  <Typography textAlign="center">{item.page}</Typography>
                 </MenuItem>
               ))}
+                 <MenuItem onClick={() => {handleCloseUserMenu(), tokenService.removeToken()}}>
+                  <Typography>Logout</Typography>
+                </MenuItem>
             </Menu>
           </Box>
           : <Button color="inherit" href={AppRoutes.AUTH}> Login</Button> 

@@ -6,13 +6,17 @@ import Backtest from "../pages/Backtest";
 import MarketData from "../pages/MarketData";
 import Pricing from "../pages/Pricing";
 import Auth from "../pages/Auth";
+import MyBacktesting from "../pages/MyBacktesting";
 import { Settings } from "@mui/icons-material";
 import { authService } from "../api/authService";
+import Profile from "../pages/Profile";
+import Error404 from "../pages/Error404/Error404";
 
 const App = () => {
   const routes = [
     { path: "/",
       element: < Layout/>,
+      errorElement: <Error404/>,
       children: [
         {
           index: true,
@@ -33,6 +37,14 @@ const App = () => {
         {
           path: AppRoutes.AUTH,
           element: <Auth/>,
+        },
+        {
+          path: AppRoutes.MY_BACKTESTING,
+          element: <MyBacktesting/>,
+        },
+        {
+          path: AppRoutes.PROFILE,
+          element: <Profile/>,
         },
         ]
     }

@@ -144,6 +144,19 @@ export const getKlines = createAsyncThunk(
   }
 );
 
+export const getBacktestData = createAsyncThunk(
+  'backtest/getBacktestData',
+  async function (id: number, { rejectWithValue }) {
+    try {
+      const response = await backtestService.getData(id);
+      return response.data;
+    } catch (error) {
+      const axiosError = <AxiosError>error;
+      return rejectWithValue(axiosError.response?.data);
+    }
+  }
+);
+
 const backtestSlice = createSlice({
   name: 'backtest',
   initialState,

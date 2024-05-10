@@ -2,6 +2,7 @@ import axiosApiInstance from './axiosApiInstance';
 import { endpoints } from '../constants/endpoints';
 import { AxiosResponse } from 'axios';
 import {
+  BacktestData,
   BacktestDates,
   BacktestDatesRequest,
   BacktestId,
@@ -39,5 +40,8 @@ export const backtestService = {
     return axiosApiInstance.get(
       `${endpoints.BACKTEST_KLINES}exchange=${data.exchange}&symbol=${data.symbol}&market_data_type=${data.market_data_type}&date_start=${data.date_start}&date_end=${data.date_end}`
     );
+  },
+  getData(id: number): Promise<AxiosResponse<BacktestData>> {
+    return axiosApiInstance.get(`${endpoints.BACKTEST_DATA}${id}`);
   },
 };

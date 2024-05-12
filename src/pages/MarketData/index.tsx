@@ -1,15 +1,17 @@
 
 import { useEffect } from "react";
 import MarketDataForm from "../../components/MarketDataForm/index";
-import MarketDataGrid from "../../components/MarketDataGrid";
-import { useAppDispatch } from "../../hooks/reduxTypedHooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxTypedHooks";
 import { getMarketData } from "../../store/marketDataSlice";
 import './marketdata.css';
 import { INITIAL_PAGE, INITIAL_PER_PAGE } from "../../constants/constants";
+import DataTable from "../../components/DataTable";
+import { COLUMNS } from "../../content/marketData";
 
 const MarketData = () => {
 
   const dispatch = useAppDispatch();
+  const rows = useAppSelector(state => state.marketData.list);
 
   useEffect(() => {
     dispatch(getMarketData({ page: INITIAL_PAGE, perPage: INITIAL_PER_PAGE }));
@@ -24,7 +26,7 @@ const MarketData = () => {
     </div>
     <div className="data__container">
        <div className="data-grid">
-          <MarketDataGrid/>
+          <DataTable rows={rows} columns={COLUMNS}/>
        </div> 
       </div>
     </div>

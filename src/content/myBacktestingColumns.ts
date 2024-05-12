@@ -1,7 +1,7 @@
 import { GridColDef } from '@mui/x-data-grid';
-import { INITIAL_PER_PAGE } from './constants';
+import { INITIAL_PER_PAGE } from '../constants/constants';
 
-export const COLUMNS: GridColDef[] = [
+export const MY_BACKTESTING_COLUMNS: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 90 },
   { field: 'exchange', headerName: 'Exchange', width: 150 },
   {

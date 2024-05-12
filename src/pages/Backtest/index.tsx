@@ -1,6 +1,6 @@
 import BacktestChart from '../../components/BacktestChart';
 import BacktestForm from '../../components/BacktestForm';
-import BacktestTable from '../../components/BacktestTable';
+import BacktestMetrics from '../../components/BacktestMetrics';
 import { useAppSelector } from '../../hooks/reduxTypedHooks';
 import './backtest.css';
 
@@ -27,7 +27,7 @@ const Backtest: React.FC = () => {
       } 
 
       <section className="backtest__metrics">
-          <BacktestTable/>
+          <BacktestMetrics/>
         </section>
 
       </div>

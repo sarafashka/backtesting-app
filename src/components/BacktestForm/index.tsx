@@ -1,3 +1,4 @@
+import './backtestForm.css';
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -5,14 +6,14 @@ import { Button } from "@mui/material";
 import BasicDatePicker from "../BasicDatePicker";
 import InputForm from "../Input";
 import CheckboxForm from "../Checkbox";
-import { BacktestFormValues } from "../../types/types";
-import './backtestForm.css';
-import { getDatesBT, getExchangesBT, getKlines, getMetrics, getSymbolsBT, getTypesBT } from "../../store/backtestSlice";
+import { BacktestFormValues, FormMarketData } from "../../types/types";
+import { getBacktestData, getDatesBT, getExchangesBT, getKlines, getMetrics, getSymbolsBT, getTypesBT } from "../../store/backtestSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxTypedHooks";
 import { useEffect } from "react";
 import AutocompleteSelect from "../AutocompleteSelect";
-import { getDateFromJs } from "../utils/utils";
+import { getDateFromJs } from "../../utils/utils";
 import { backtestService } from "../../api/backtestService";
+// import { buildChart } from '../../functions/buildChart';
 
   const formSchema: yup.ObjectSchema <BacktestFormValues> = yup.object().shape({
     backtestExchange: yup.string().required('Exchange is required'),
@@ -37,6 +38,7 @@ const BacktestForm:React.FC = () => {
   const dispatch = useAppDispatch();
   const backtestFilters = useAppSelector(state => state.backtest);
   const { exchanges, symbols, mdt, dates } = backtestFilters;
+  const backtestData = useAppSelector((state) => state.backtest.data);
   
     const {
       handleSubmit,
@@ -96,7 +98,8 @@ const BacktestForm:React.FC = () => {
       } catch (error) {
           throw new Error ('Some backtest problems')
       }
-      dispatch(getMetrics(id))
+      await dispatch(getMetrics(id));
+      await dispatch(getBacktestData(id));
 
       const requestKlines = {
         exchange: data.backtestExchange,
@@ -106,7 +109,7 @@ const BacktestForm:React.FC = () => {
         date_end: getDateFromJs(data.endDate),
 
       }
-      dispatch(getKlines(requestKlines));
+      await dispatch(getKlines(requestKlines));
       reset();
     }
 
@@ -128,9 +131,32 @@ const BacktestForm:React.FC = () => {
       dispatch(getDatesBT(data));
     }
 
+    const handleClick = async () => {
+        const id = 2;
+      
+       await dispatch(getMetrics(id));
+       await dispatch(getBacktestData(id));
+      
+        if (backtestData) {
+          const { exchange, symbol, market_data_type, date_start, date_end } = backtestData;
+          console.log('5 data function', backtestData);
+      
+          const requestKlines: FormMarketData = {
+            exchange: exchange,
+            symbol: symbol,
+            market_data_type: market_data_type,
+            date_start: getDateFromJs(new Date(date_start)),
+            date_end: getDateFromJs(new Date(date_end)),
+          };
+          dispatch(getKlines(requestKlines));
+        }
+      };
+      
+
   return(
     <>
      <form className="backtest-form" onSubmit={handleSubmit(onSubmit)}>
+      <Button onClick={handleClick}>Test</Button>
       <div className="backtest-form__data">
           <div className="backtest-form_select">
             <AutocompleteSelect

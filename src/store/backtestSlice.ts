@@ -121,8 +121,10 @@ export const backtestRun = createAsyncThunk(
 export const getMetrics = createAsyncThunk(
   'backtest/getMetrics',
   async function (id: number, { rejectWithValue }) {
+    console.log('1 metrics');
     try {
       const response = await backtestService.getMetrics(id);
+      console.log('2 metrics ready', response.data);
       return response.data;
     } catch (error) {
       const axiosError = <AxiosError>error;
@@ -134,6 +136,7 @@ export const getMetrics = createAsyncThunk(
 export const getKlines = createAsyncThunk(
   'backtest/getKlines',
   async function (data: FormMarketData, { rejectWithValue }) {
+    console.log('6 klines');
     try {
       const response = await backtestService.getKlines(data);
       return response.data;
@@ -147,8 +150,10 @@ export const getKlines = createAsyncThunk(
 export const getBacktestData = createAsyncThunk(
   'backtest/getBacktestData',
   async function (id: number, { rejectWithValue }) {
+    console.log('3 data');
     try {
       const response = await backtestService.getData(id);
+      console.log('4 data ready', response.data);
       return response.data;
     } catch (error) {
       const axiosError = <AxiosError>error;
@@ -189,6 +194,10 @@ const backtestSlice = createSlice({
     });
     builder.addCase(getKlines.fulfilled, (state, action) => {
       state.klines = action.payload;
+      state.isLoading = false;
+    });
+    builder.addCase(getBacktestData.fulfilled, (state, action) => {
+      state.data = action.payload;
       state.isLoading = false;
     });
   },

@@ -1,9 +1,7 @@
-import { BacktestMetrics } from '../../types/types';
+import { BacktestMetrics } from '../types/types';
 
 export const getDateFromJs = (objectDate: Date): string => {
-  console.log('date', objectDate);
   const day = objectDate.getDate();
-  console.log('day', day);
   const month = objectDate.getMonth() + 1;
   const year = objectDate.getFullYear();
 
@@ -24,10 +22,10 @@ export const formatMetricsToRows = (metrics: BacktestMetrics) => {
   const rows: MetricsRows[] = [];
   const arr = Object.entries(metrics);
   arr.forEach((item, index) => {
-    const metric = {
+    const metric: MetricsRows = {
       id: index,
-      name: item[0],
-      value: item[1],
+      name: (item[0][0].toUpperCase() + item[0].slice(1)).replace(/_/g, ' '),
+      value: Number.isInteger(item[1]) ? item[1] : item[1].toFixed(2),
     };
     rows.push(metric);
   });

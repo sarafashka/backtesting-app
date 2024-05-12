@@ -1,5 +1,5 @@
 import Plot from "react-plotly.js";
-import { getDataForChart } from "./getDataForChart";
+import { getDataForChart } from "../../functions/getDataForChart";
 
 const BacktestChart: React.FC = () => {
 
@@ -8,7 +8,7 @@ const BacktestChart: React.FC = () => {
     return (
       <Plot
         data={dataForChart}
-        layout={ {width: 1000, height: 800} }
+        layout={ { height: 600} }
       />
     );
 }

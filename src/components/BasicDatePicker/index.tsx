@@ -35,8 +35,8 @@ const BasicDatePicker:React.FC<BasicDatePickerProps> = ({
           label={label}
           disableFuture 
           format="DD.MM.YYYY"
-          minDate={dayjs(minDate)}
-          maxDate={dayjs(maxDate)}
+          minDate={minDate && dayjs(minDate)}
+          maxDate={maxDate && dayjs(maxDate)}
           disabled={isDisabled}
           
         />

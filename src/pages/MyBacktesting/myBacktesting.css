@@ -1,0 +1,15 @@
+.backtesting {
+  display: flex;
+  flex-direction: column;
+}
+
+.backtesting__container {
+  background-color: #FFFFFF;
+  margin: 1.5rem;
+  border-radius: 0.6rem;
+  padding:  1.5rem 0; 
+  border:none;
+}
+.backtesting__history {
+  display: flex;
+}

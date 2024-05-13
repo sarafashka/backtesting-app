@@ -6,7 +6,6 @@ interface CheckboxFormProps  {
   label: string | null;
   name: string;
   control: any,
-  //  Control<FormValues> | Control<BacktestFormValues>,
 }
 const CheckboxForm:React.FC<CheckboxFormProps> = ({
   label,

@@ -1,3 +1,4 @@
+import './myBacktesting.css'
 import { GridRowParams } from "@mui/x-data-grid";
 import DataTable from "../../components/DataTable";
 import { COLUMNS } from "../../content/marketData";
@@ -51,13 +52,28 @@ const buildChart = async (event:GridRowParams<any>) => {
   return (
     <>
     <h2>Backtesting history</h2>
-    <DataTable
-      rows={rows}
-      columns={COLUMNS}
-      onClick={buildChart}
-      />
-    {backtest.metrics && <BacktestMetrics/>}
-    {backtest.data && backtest.klines && <BacktestChart/>}
+    <div className="backtesting">
+      <section className="backtesting__container">
+          <DataTable
+            rows={rows}
+            columns={COLUMNS}
+            onClick={buildChart}
+          />
+      </section>
+      <div className='backtesting__history'>
+         <section className="backtesting__container">
+          {backtest.metrics && <BacktestMetrics/>}
+      </section>
+
+      <section className="backtesting__container">
+          {backtest.data && backtest.klines && <BacktestChart/>} 
+      </section>
+      </div>
+      
+     
+
+    </div>
+  
     </>
   )
 }

@@ -139,7 +139,6 @@ const BacktestForm:React.FC = () => {
       
         if (backtestData) {
           const { exchange, symbol, market_data_type, date_start, date_end } = backtestData;
-          console.log('5 data function', backtestData);
       
           const requestKlines: FormMarketData = {
             exchange: exchange,

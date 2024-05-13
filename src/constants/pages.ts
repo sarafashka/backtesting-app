@@ -6,7 +6,6 @@ export const PAGES_ROUTES = [
     page: 'About',
     route: AppRoutes.ABOUT,
   },
-
   {
     id: '2',
     page: 'Pricing',

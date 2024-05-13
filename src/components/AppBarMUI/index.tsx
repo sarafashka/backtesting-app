@@ -1,17 +1,21 @@
-import {AppBar, Container, Box, Toolbar, Typography,Menu, IconButton, MenuItem, Button,Tooltip, Avatar } from "@mui/material";
+import {AppBar, Container, Box, Toolbar, Typography,Menu, IconButton, MenuItem, Button, Avatar } from "@mui/material";
 import * as React from 'react';
-import {Link} from "react-router-dom";
+import {Link, NavLink, useNavigate} from "react-router-dom";
 import  MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/TrendingUp';
-import { PAGES_ROUTES } from "../../constants/pages";
+import { AUTH_REQUIRED_PAGE_ROUTES, PAGES_ROUTES, PROFILE_PAGES_ROUTES } from "../../constants/pages";
 import { authService } from "../../api/authService";
 import AppRoutes from "../../constants/routes";
+import { tokenService } from "../../api/tokenService";
 
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const AppBarMUI =() => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+
+  const navigate = useNavigate();
+
+  const pages = authService.isUserLogged() ? AUTH_REQUIRED_PAGE_ROUTES : PAGES_ROUTES;
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -80,8 +84,8 @@ const AppBarMUI =() => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {PAGES_ROUTES.map((item) => (
-                <MenuItem key={item.id} onClick={handleCloseNavMenu} component={Link} to={item.route}>
+              {pages.map((item) => (
+                <MenuItem key={item.id} onClick={handleCloseNavMenu} component={NavLink} to={item.route}>
                   <Typography textAlign="center">{item.page}</Typography>
                 </MenuItem>
               ))}
@@ -107,8 +111,8 @@ const AppBarMUI =() => {
             MyApp
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {PAGES_ROUTES.map((item) => (
-              <Link key={item.id} to={item.route}>
+            {pages.map((item) => (
+              <NavLink key={item.id} to={item.route}>
               <Button
                 key={item.id}
                 onClick={handleCloseNavMenu}
@@ -116,16 +120,14 @@ const AppBarMUI =() => {
               >
                 {item.page}
               </Button>
-              </Link>
+              </NavLink>
             ))}
           </Box>
 
           {authService.isUserLogged() ? <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="" />
               </IconButton>
-            </Tooltip>
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
@@ -142,11 +144,14 @@ const AppBarMUI =() => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+              {PROFILE_PAGES_ROUTES.map((item) => (
+                <MenuItem key={item.id} onClick={handleCloseUserMenu} component={Link} to={item.route}>
+                  <Typography textAlign="center">{item.page}</Typography>
                 </MenuItem>
               ))}
+                 <MenuItem onClick={() => {handleCloseUserMenu(), tokenService.removeToken(), navigate(AppRoutes.ABOUT)}}>
+                  <Typography>Logout</Typography>
+                </MenuItem>
             </Menu>
           </Box>
           : <Button color="inherit" href={AppRoutes.AUTH}> Login</Button> 

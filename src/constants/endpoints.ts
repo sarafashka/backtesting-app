@@ -12,4 +12,6 @@ export enum endpoints {
   BACKTEST_RUN = '/api/backtest/grid/run',
   BACKTEST_METRICS = '/api/backtest/result/metrics?id=',
   BACKTEST_CHART = '/api/backtest/result/chart?id=',
+  BACKTEST_DATA = '/api/backtest/result/data?id=',
+  BACKTEST_KLINES = '/api/market-data/klines?',
 }

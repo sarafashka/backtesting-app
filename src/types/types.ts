@@ -68,6 +68,12 @@ export type MarketDataRequest = {
   perPage: string;
 };
 
+export type BacktestDatesRequest = {
+  exchange: string;
+  symbol: string;
+  mdt: string;
+};
+
 export type SelectType = {
   options: string[];
   isDisabled: boolean;
@@ -128,4 +134,54 @@ export interface BacktestId {
 export interface BacktestDates {
   date_start: string;
   date_end: string;
+}
+
+export interface Kline {
+  date: number;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  volume: number;
+}
+
+export interface BacktestData {
+  id: number;
+  metrics_id: number;
+  symbol: string;
+  exchange: string;
+  market_data_type: string;
+  chart_market_data_type: string;
+  date_start: number;
+  date_end: number;
+  deposit: number;
+  commission: number;
+  price_low: number;
+  price_high: number;
+  grid_count: number;
+  grid_trigger: number;
+  grid_sl: null | number;
+  grid_tp: null | number;
+  sell_all: boolean;
+  positions: Position[];
+}
+
+export interface Position {
+  id: string;
+  symbol: string;
+  status: string;
+  orders: PositionOrder[];
+  pnl: number;
+}
+
+export interface PositionOrder {
+  date: number;
+  date_update: number;
+  price: number;
+  price_executed: number;
+  qty: number;
+  commission: number;
+  order_type: string;
+  side: string;
+  status: string;
 }

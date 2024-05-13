@@ -1,17 +1,16 @@
 import { Box } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { DataGrid } from "@mui/x-data-grid";
-// import { metrics } from "../../testData/symbols";
 import { useAppSelector } from "../../hooks/reduxTypedHooks";
-import { formatMetricsToRows } from "../utils/utils";
+import { formatMetricsToRows } from "../../utils/utils";
 
 const columns =   [
-  { field: 'name', headerName: 'Name', width: 170 },
+  { field: 'name', headerName: 'Name', width: 250 },
   { field: 'value', headerName: 'Value', width: 90 },
 ]
 
 
-const BacktestTable: React.FC = () => {
+const BacktestMetrics: React.FC = () => {
 
   const metrics = useAppSelector(state => state.backtest.metrics); 
 
@@ -20,28 +19,28 @@ const BacktestTable: React.FC = () => {
     {metrics &&
     <Box sx={{ height: '100%', width: '100%' }}>
       <DataGrid
-      getRowClassName={(params) => {
-        if (params.row.name.includes('Total')) {
-         return params.row.value >=0 ? "green" : "red"; 
-        }
-        return "white"
-      }}
-      sx={{
-      ".green": {
-        bgcolor: "lightgreen",
-        "&:hover": {
+        getRowClassName={(params) => {
+          if (params.row.name.includes('Total')) {
+          return params.row.value >=0 ? "green" : "red"; 
+          }
+          return "white"
+        }}
+        sx={{
+        ".green": {
           bgcolor: "lightgreen",
+          "&:hover": {
+            bgcolor: "lightgreen",
+          },
         },
-      },
-      ".red": {
-        bgcolor: "pink",
-        "&:hover": {
+        ".red": {
           bgcolor: "pink",
+          "&:hover": {
+            bgcolor: "pink",
+          },
         },
-      },
-      border: 0,
-      col: grey,
-    }}
+        border: 0,
+        col: grey,
+      }}
 
         rows={formatMetricsToRows(metrics)}
         columns={columns}
@@ -62,4 +61,4 @@ const BacktestTable: React.FC = () => {
   )
 };
 
-export default BacktestTable;
+export default BacktestMetrics;

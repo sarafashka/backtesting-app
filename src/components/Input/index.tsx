@@ -8,7 +8,6 @@ interface InputFormProps  {
   label: string | null;
   control: any,
   type?:string
-  // Control<FormValues> | Control<BacktestFormValues>,
   isDisabled?: boolean;
 };
 
@@ -24,10 +23,8 @@ const InputForm:React.FC<InputFormProps> = ({
       control={control}
       render={({ field: { onChange}, fieldState: {error}  }) => (
            <TextField
-              // {...field} 
               id={name}
               label={label}
-              // inputRef={ref}
               onChange={onChange}
               error={!!error}
               helperText={error?.message}

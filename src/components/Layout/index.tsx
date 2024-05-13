@@ -6,16 +6,15 @@ import Header from "../Header";
 const Layout = () => {
   return(
     <>
-    <div className="container">
-      <Header/>
-      <main className="main">
-        <ErrorBoundary>
-          <Outlet />
-        </ErrorBoundary>
-      </main>
-      <Footer/>  
-    </div>
-    
+     <ErrorBoundary>
+       <div className="container">
+          <Header/>
+           <main className="main">
+              <Outlet />
+           </main>
+          <Footer/>  
+        </div>
+     </ErrorBoundary>
     </>
   )
 }

@@ -1,18 +1,26 @@
 import Box from '@mui/material/Box';
-import { DataGrid} from '@mui/x-data-grid';
-import { COLUMNS, PAGE_SIZE_TABLE } from '../../constants/marketData';
+import { DataGrid, GridColDef, GridRowParams} from '@mui/x-data-grid';
+import { COLUMNS, PAGE_SIZE_TABLE } from '../../content/marketData';
 import { useAppSelector } from '../../hooks/reduxTypedHooks';
 
+interface DataTableProps {
+  rows: any;
+  columns: any;
+  onClick?: (event:GridRowParams<any>) => void;
+}
+const DataTable: React.FC<DataTableProps> = ({
+  rows,
+  columns,
+  onClick,
+}) => {
 
 
-export default function MarketDataGrid() {
-  const rows = useAppSelector(state => state.marketData.list);
-  
   return (
     <Box sx={{ height: 400, width: '100%' }}>
       <DataGrid
         rows={rows}
-        columns={COLUMNS}
+        columns={columns}
+        onRowClick={(event)=>onClick && onClick(event)}
         initialState={{
           pagination: {
             paginationModel: {
@@ -28,3 +36,5 @@ export default function MarketDataGrid() {
     </Box>
   );
 }
+
+export default DataTable;

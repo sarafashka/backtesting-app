@@ -8,7 +8,7 @@ import { downloadMarketData, getExchanges, getMarketData, getSymbols, getTypes }
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxTypedHooks";
 import { MarketDataFormValues } from '../../types/types';
 import {  useEffect } from 'react';
-import { getDateFromJs } from '../utils/utils';
+import { getDateFromJs } from '../../utils/utils';
 import AutocompleteSelect from '../AutocompleteSelect';
 import { INITIAL_PAGE, INITIAL_PER_PAGE } from '../../constants/constants';
 

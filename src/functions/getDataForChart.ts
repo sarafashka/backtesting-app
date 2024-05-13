@@ -39,7 +39,7 @@ export const getDataForChart = () => {
   });
 
   if (klines) {
-    return [
+    const data = [
       {
         type: 'candlestick',
         x: klines.map((item) => new Date(item.date)),
@@ -64,5 +64,7 @@ export const getDataForChart = () => {
       },
       ...scatters,
     ];
+    console.log('data', data);
+    return data;
   }
 };

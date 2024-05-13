@@ -1,7 +1,6 @@
 import Box from '@mui/material/Box';
-import { DataGrid, GridColDef, GridRowParams} from '@mui/x-data-grid';
-import { COLUMNS, PAGE_SIZE_TABLE } from '../../content/marketData';
-import { useAppSelector } from '../../hooks/reduxTypedHooks';
+import { DataGrid, GridRowParams} from '@mui/x-data-grid';
+import { PAGE_SIZE_TABLE } from '../../content/marketData';
 
 interface DataTableProps {
   rows: any;

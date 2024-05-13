@@ -18,8 +18,7 @@ const About = () => {
         <Button variant="contained" onClick={() => {
             navigate(AppRoutes.BACKTEST);
           }} >Backtest</Button>
-        {/* <Button variant="contained" onClick={handleClick}>Login</Button> */}
-        <Button variant="contained" href={AppRoutes.AUTH}> Login</Button> 
+        <Button variant="contained" onClick={() => navigate(AppRoutes.AUTH)}> Login</Button> 
        </div>
     </section>
     </div>

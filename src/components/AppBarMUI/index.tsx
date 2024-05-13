@@ -154,7 +154,7 @@ const AppBarMUI =() => {
                 </MenuItem>
             </Menu>
           </Box>
-          : <Button color="inherit" href={AppRoutes.AUTH}> Login</Button> 
+          : <Button color="inherit"  onClick={() => navigate(AppRoutes.AUTH)} > Login</Button> 
           }
         </Toolbar>
       </Container>

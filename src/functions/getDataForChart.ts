@@ -51,13 +51,13 @@ export const getDataForChart = () => {
         showlegend: false,
         increasing: {
           line: {
-            width: 1.0,
+            width: 2,
             color: 'lightgreen',
           },
         },
         decreasing: {
           line: {
-            width: 1.0,
+            width: 2,
             color: 'lightred',
           },
         },

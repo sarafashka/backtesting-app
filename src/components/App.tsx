@@ -1,4 +1,4 @@
-import { Navigate, RouterProvider,  createBrowserRouter} from "react-router-dom";
+import { RouterProvider,  createBrowserRouter} from "react-router-dom";
 import Layout from "./Layout";
 import AppRoutes from "../constants/routes";
 import About from "../pages/About";
@@ -7,12 +7,12 @@ import MarketData from "../pages/MarketData";
 import Pricing from "../pages/Pricing";
 import Auth from "../pages/Auth";
 import MyBacktesting from "../pages/MyBacktesting";
-import { Settings } from "@mui/icons-material";
-import { authService } from "../api/authService";
 import Profile from "../pages/Profile";
 import Error404 from "../pages/Error404/Error404";
+import AuthRequired from "./AuthRequired";
 
 const App = () => {
+ 
   const routes = [
     { path: "/",
       element: < Layout/>,
@@ -23,14 +23,6 @@ const App = () => {
           element: <About />,
         },
         {
-          path: AppRoutes.MARKET_DATA,
-          element: < MarketData/>,
-        },
-        {
-          path: AppRoutes.BACKTEST,
-          element: < Backtest/>,
-        },
-        {
           path: AppRoutes.PRICING,
           element: <Pricing/>,
         },
@@ -39,56 +31,33 @@ const App = () => {
           element: <Auth/>,
         },
         {
-          path: AppRoutes.MY_BACKTESTING,
-          element: <MyBacktesting/>,
-        },
-        {
-          path: AppRoutes.PROFILE,
-          element: <Profile/>,
-        },
+          element: <AuthRequired/>,
+          children: [
+            {
+              path: AppRoutes.MARKET_DATA,
+              element: < MarketData/>,
+            },
+            {
+              path: AppRoutes.BACKTEST,
+              element: < Backtest/>,
+            },
+            {
+            path: AppRoutes.PROFILE,
+            element: <Profile/>,
+            },
+            {
+              path: AppRoutes.MY_BACKTESTING,
+              element: <MyBacktesting/>,
+            },
+            {
+              path: AppRoutes.MY_BACKTESTING,
+              element: <MyBacktesting/>,
+            },
+          ]
+        },    
         ]
     }
   ]
-
-  // function privateRoutes() {
-  //   return {
-  //     element: <Layout />,
-  //     children: [
-  //       {
-  //         path: AppRoutes.MARKET_DATA,
-  //         element: < MarketData/>,
-  //       },
-  //       {
-  //         path: AppRoutes.BACKTEST,
-  //         element: < Backtest/>,
-  //       },
-  //       { path: "*", element: <Navigate to="/" replace /> },
-  //     ],
-  //   };
-  // }
-
-  // function publicRoutes() {
-  //   return [
-  //     {
-  //       index: true,
-  //       element: <About />,
-  //     },
-  //     {
-  //       path: AppRoutes.PRICING,
-  //       element: <Pricing/>,
-  //     },
-  //     {
-  //       path: AppRoutes.AUTH,
-  //       element: <Auth/>,
-  //     },
-  //     { path: "*", element: <Navigate to="/login" replace /> },
-  //   ];
-  // }
-
-  // const router = createBrowserRouter([
-  //   authService.isUserLogged() ? privateRoutes() : {},
-  //   ...publicRoutes(),
-  // ]);
 
   const router = createBrowserRouter(routes, { basename: import.meta.env.DEV ? '/' : '/backtesting-app/'})  //vite.config.ts
 

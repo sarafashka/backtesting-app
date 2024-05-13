@@ -1,6 +1,6 @@
 import {AppBar, Container, Box, Toolbar, Typography,Menu, IconButton, MenuItem, Button,Tooltip, Avatar } from "@mui/material";
 import * as React from 'react';
-import {Link} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import  MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/TrendingUp';
 import { PAGES_ROUTES, PROFILE_PAGES_ROUTES } from "../../constants/pages";
@@ -82,7 +82,7 @@ const AppBarMUI =() => {
               }}
             >
               {PAGES_ROUTES.map((item) => (
-                <MenuItem key={item.id} onClick={handleCloseNavMenu} component={Link} to={item.route}>
+                <MenuItem key={item.id} onClick={handleCloseNavMenu} component={NavLink} to={item.route}>
                   <Typography textAlign="center">{item.page}</Typography>
                 </MenuItem>
               ))}
@@ -109,7 +109,7 @@ const AppBarMUI =() => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {PAGES_ROUTES.map((item) => (
-              <Link key={item.id} to={item.route}>
+              <NavLink key={item.id} to={item.route}>
               <Button
                 key={item.id}
                 onClick={handleCloseNavMenu}
@@ -117,7 +117,7 @@ const AppBarMUI =() => {
               >
                 {item.page}
               </Button>
-              </Link>
+              </NavLink>
             ))}
           </Box>
 

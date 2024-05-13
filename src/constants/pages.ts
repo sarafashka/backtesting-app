@@ -6,6 +6,20 @@ export const PAGES_ROUTES = [
     page: 'About',
     route: AppRoutes.ABOUT,
   },
+
+  {
+    id: '2',
+    page: 'Pricing',
+    route: AppRoutes.PRICING,
+  },
+];
+
+export const AUTH_REQUIRED_PAGE_ROUTES = [
+  {
+    id: '1',
+    page: 'About',
+    route: AppRoutes.ABOUT,
+  },
   {
     id: '2',
     page: 'Market Data',

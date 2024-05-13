@@ -1,18 +1,21 @@
-import {AppBar, Container, Box, Toolbar, Typography,Menu, IconButton, MenuItem, Button,Tooltip, Avatar } from "@mui/material";
+import {AppBar, Container, Box, Toolbar, Typography,Menu, IconButton, MenuItem, Button, Avatar } from "@mui/material";
 import * as React from 'react';
-import {Link, NavLink} from "react-router-dom";
+import {Link, NavLink, useNavigate} from "react-router-dom";
 import  MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/TrendingUp';
-import { PAGES_ROUTES, PROFILE_PAGES_ROUTES } from "../../constants/pages";
+import { AUTH_REQUIRED_PAGE_ROUTES, PAGES_ROUTES, PROFILE_PAGES_ROUTES } from "../../constants/pages";
 import { authService } from "../../api/authService";
 import AppRoutes from "../../constants/routes";
 import { tokenService } from "../../api/tokenService";
 
-// const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const AppBarMUI =() => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+
+  const navigate = useNavigate();
+
+  const pages = authService.isUserLogged() ? AUTH_REQUIRED_PAGE_ROUTES : PAGES_ROUTES;
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -81,7 +84,7 @@ const AppBarMUI =() => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {PAGES_ROUTES.map((item) => (
+              {pages.map((item) => (
                 <MenuItem key={item.id} onClick={handleCloseNavMenu} component={NavLink} to={item.route}>
                   <Typography textAlign="center">{item.page}</Typography>
                 </MenuItem>
@@ -108,7 +111,7 @@ const AppBarMUI =() => {
             MyApp
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {PAGES_ROUTES.map((item) => (
+            {pages.map((item) => (
               <NavLink key={item.id} to={item.route}>
               <Button
                 key={item.id}
@@ -146,7 +149,7 @@ const AppBarMUI =() => {
                   <Typography textAlign="center">{item.page}</Typography>
                 </MenuItem>
               ))}
-                 <MenuItem onClick={() => {handleCloseUserMenu(), tokenService.removeToken()}}>
+                 <MenuItem onClick={() => {handleCloseUserMenu(), tokenService.removeToken(), navigate(AppRoutes.ABOUT)}}>
                   <Typography>Logout</Typography>
                 </MenuItem>
             </Menu>

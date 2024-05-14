@@ -1,10 +1,10 @@
 import Box from '@mui/material/Box';
-import { DataGrid, GridRowParams} from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridRowParams} from '@mui/x-data-grid';
 import { PAGE_SIZE_TABLE } from '../../content/marketData';
 
 interface DataTableProps {
   rows: any;
-  columns: any;
+  columns: GridColDef[];
   onClick?: (event:GridRowParams<any>) => void;
 }
 const DataTable: React.FC<DataTableProps> = ({

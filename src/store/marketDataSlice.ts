@@ -14,6 +14,7 @@ type MarketDataState = {
   symbols: SelectType;
   mdt: SelectType;
   isLoading: boolean;
+  error: AxiosError | null;
 };
 
 const initialState: MarketDataState = {
@@ -34,6 +35,15 @@ const initialState: MarketDataState = {
     value: '',
   },
   isLoading: false,
+  error: null,
+};
+
+const isPending = (action: { type: string }) => {
+  return /^marketData\/[a-z]+\/pending$/i.test(action.type);
+};
+
+const isRejected = (action: { type: string }) => {
+  return /^marketData\/[a-z]+\/rejected$/i.test(action.type);
 };
 
 export const getMarketData = createAsyncThunk(
@@ -132,6 +142,14 @@ const marketDataSlice = createSlice({
     });
     builder.addCase(getSymbols.fulfilled, (state, action) => {
       state.symbols.options = action.payload.data;
+      state.isLoading = false;
+    });
+    builder.addMatcher(isPending, (state) => {
+      state.isLoading = true;
+      state.error = null;
+    });
+    builder.addMatcher(isRejected, (state, { payload }: PayloadAction<AxiosError>) => {
+      state.error = payload;
       state.isLoading = false;
     });
   },

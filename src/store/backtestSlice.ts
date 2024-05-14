@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {
   BacktestData,
   BacktestDatesRequest,
@@ -24,6 +24,7 @@ type backtestState = {
   data: BacktestData | null;
   klines: Kline[] | null;
   isLoading: boolean;
+  error: AxiosError | null;
 };
 
 const initialState: backtestState = {
@@ -51,6 +52,15 @@ const initialState: backtestState = {
   data: null,
   klines: null,
   isLoading: false,
+  error: null,
+};
+
+const isPending = (action: { type: string }) => {
+  return /^backtest\/[a-z]+\/pending$/i.test(action.type);
+};
+
+const isRejected = (action: { type: string }) => {
+  return /^backtest\/[a-z]+\/rejected$/i.test(action.type);
 };
 
 export const getExchangesBT = createAsyncThunk(
@@ -193,6 +203,14 @@ const backtestSlice = createSlice({
     });
     builder.addCase(getBacktestData.fulfilled, (state, action) => {
       state.data = action.payload;
+      state.isLoading = false;
+    });
+    builder.addMatcher(isPending, (state) => {
+      state.isLoading = true;
+      state.error = null;
+    });
+    builder.addMatcher(isRejected, (state, { payload }: PayloadAction<AxiosError>) => {
+      state.error = payload;
       state.isLoading = false;
     });
   },

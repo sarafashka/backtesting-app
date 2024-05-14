@@ -8,7 +8,7 @@ const Loader: React.FC<LoaderProps> = ({open}) => {
   return (
     <>
      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        sx={{ color: '#000', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={open}
       ></Backdrop>
     <CircularProgress sx={{zIndex: (theme) => theme.zIndex.drawer + 2, position: "fixed", top: '50%'}}/>

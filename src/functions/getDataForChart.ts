@@ -52,7 +52,7 @@ export const getDataForChart = () => {
         increasing: {
           line: {
             width: 2,
-            color: 'lightgreen',
+            color: '#01b574',
           },
         },
         decreasing: {
@@ -64,7 +64,6 @@ export const getDataForChart = () => {
       },
       ...scatters,
     ];
-    console.log('data', data);
     return data;
   }
 };

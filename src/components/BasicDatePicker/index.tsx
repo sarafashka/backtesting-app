@@ -18,28 +18,30 @@ const BasicDatePicker:React.FC<BasicDatePickerProps> = ({
   label,
   name,
   control,
-   minDate,
+  minDate,
   maxDate,
-  isDisabled
 
 }) => {
 
   
   return (
     <Controller name={name} control={control}
-      render={({ field: { onChange}}) => (
+      render={({ field: { onChange, value, ref}}) => (      
       <LocalizationProvider  dateAdapter={AdapterDayjs}>
           <DatePicker 
-          onChange={onChange}
+           value={dayjs(value)}
+           inputRef={ref}
+           onChange={(date) => {
+             onChange(dayjs(date));
+           }}
           label={label}
           disableFuture 
           format="DD.MM.YYYY"
           minDate={minDate && dayjs(minDate)}
           maxDate={maxDate && dayjs(maxDate)}
-          disabled={isDisabled}
           
         />
-      </LocalizationProvider>
+       </LocalizationProvider>
       )}
     />
    

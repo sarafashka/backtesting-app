@@ -1,58 +1,26 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import {
-  BacktestData,
-  BacktestDatesRequest,
-  BacktestMetrics,
-  FormBacktest,
-  FormMarketData,
-  Kline,
-  SelectType,
-} from '../types/types';
+import { BacktestData, BacktestMetrics, FormMarketData, Kline } from '../types/types';
 import { AxiosError } from 'axios';
 import { backtestService } from '../api/backtestService';
 
 type backtestState = {
-  exchanges: SelectType;
-  symbols: SelectType;
-  mdt: SelectType;
-  dates: {
-    startDate: string;
-    endDate: string;
-    isDisabled: boolean;
-  };
   metrics: BacktestMetrics | null;
   data: BacktestData | null;
   klines: Kline[] | null;
   isLoading: boolean;
   error: AxiosError | null;
+
+  testNumber: number;
 };
 
 const initialState: backtestState = {
-  exchanges: {
-    options: [],
-    isDisabled: false,
-    value: '',
-  },
-  symbols: {
-    options: [],
-    isDisabled: true,
-    value: '',
-  },
-  mdt: {
-    options: [],
-    isDisabled: true,
-    value: '',
-  },
-  dates: {
-    startDate: '',
-    endDate: '',
-    isDisabled: true,
-  },
   metrics: null,
   data: null,
   klines: null,
   isLoading: false,
   error: null,
+
+  testNumber: 0,
 };
 
 const isPending = (action: { type: string }) => {
@@ -62,71 +30,6 @@ const isPending = (action: { type: string }) => {
 const isRejected = (action: { type: string }) => {
   return /^backtest\/[a-z]+\/rejected$/i.test(action.type);
 };
-
-export const getExchangesBT = createAsyncThunk(
-  'backtest/getExchangesBT',
-  async function (_, { rejectWithValue }) {
-    try {
-      const response = await backtestService.getExchanges();
-      return response;
-    } catch (error) {
-      const axiosError = <AxiosError>error;
-      return rejectWithValue(axiosError.response?.data);
-    }
-  }
-);
-
-export const getSymbolsBT = createAsyncThunk(
-  'backtest/getSymbolsBT',
-  async function (_, { rejectWithValue }) {
-    try {
-      const response = await backtestService.getSymbols();
-      return response;
-    } catch (error) {
-      const axiosError = <AxiosError>error;
-      return rejectWithValue(axiosError.response?.data);
-    }
-  }
-);
-
-export const getTypesBT = createAsyncThunk(
-  'backtest/getTypesBT',
-  async function (symbol: string, { rejectWithValue }) {
-    try {
-      const response = await backtestService.getTypes(symbol);
-      return response;
-    } catch (error) {
-      const axiosError = <AxiosError>error;
-      return rejectWithValue(axiosError.response?.data);
-    }
-  }
-);
-
-export const getDatesBT = createAsyncThunk(
-  'backtest/getDatesBT',
-  async function (data: BacktestDatesRequest, { rejectWithValue }) {
-    try {
-      const response = await backtestService.getDates(data);
-      return response;
-    } catch (error) {
-      const axiosError = <AxiosError>error;
-      return rejectWithValue(axiosError.response?.data);
-    }
-  }
-);
-
-export const backtestRun = createAsyncThunk(
-  'backtest/backtestRun',
-  async function (data: FormBacktest, { rejectWithValue }) {
-    try {
-      const response = await backtestService.backtestRun(data);
-      return response.data;
-    } catch (error) {
-      const axiosError = <AxiosError>error;
-      return rejectWithValue(axiosError.response?.data);
-    }
-  }
-);
 
 export const getMetrics = createAsyncThunk(
   'backtest/getMetrics',
@@ -172,27 +75,6 @@ const backtestSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getExchangesBT.fulfilled, (state, action) => {
-      state.exchanges.options = action.payload.data;
-      state.isLoading = false;
-    });
-    builder.addCase(getSymbolsBT.fulfilled, (state, action) => {
-      state.symbols.options = action.payload.data;
-      state.symbols.isDisabled = false;
-      state.isLoading = false;
-    });
-    builder.addCase(getTypesBT.fulfilled, (state, action) => {
-      state.mdt.options = action.payload.data;
-      state.mdt.isDisabled = false;
-      state.isLoading = false;
-    });
-    builder.addCase(getDatesBT.fulfilled, (state, action) => {
-      state.dates.endDate = action.payload.data.date_end;
-      state.dates.startDate = action.payload.data.date_start;
-      state.dates.isDisabled = false;
-      state.isLoading = false;
-    });
-    // builder.addCase(backtestRun.fulfilled, (state, action) => {});
     builder.addCase(getMetrics.fulfilled, (state, action) => {
       state.metrics = action.payload;
       state.isLoading = false;

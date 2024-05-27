@@ -15,8 +15,8 @@ export interface BacktestFormValues {
   backtestSymbol: string;
   backtestPeriod: string;
   chartPeriod: string;
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
   deposit: number;
   commission: number;
   priceLow: number;
@@ -25,7 +25,7 @@ export interface BacktestFormValues {
   gridTrigger: number;
   gridStopLoss: number | undefined;
   gridTakeProfit: number | undefined;
-  sellAll: boolean | undefined;
+  // sellAll: boolean | undefined;
 }
 
 export interface MarketDataFormValues {

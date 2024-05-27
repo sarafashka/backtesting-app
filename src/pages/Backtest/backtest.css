@@ -6,8 +6,6 @@
 .backtest__chart {
   /* width: 20rem; */
   background-color: #fff;
-  margin: 1.5rem;
-  border-radius: 0.6rem;
-  padding-left: 1.5rem;
+  border-radius: 0.7rem;
   border: none;
 }

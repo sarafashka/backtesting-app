@@ -28,7 +28,8 @@ const InputForm:React.FC<InputFormProps> = ({
               onChange={onChange}
               error={!!error}
               helperText={error?.message}
-              variant="standard"
+              variant="filled"
+              size='small'
               type={type || 'number'}
               autoComplete='off'
             />

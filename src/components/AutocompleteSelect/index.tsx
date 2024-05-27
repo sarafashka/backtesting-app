@@ -6,11 +6,11 @@ import { Controller } from 'react-hook-form';
 
 interface InputMarketDataFormProps  {
   name: string;
-  label: string | null;
+  label?: string | null;
   control: any,
   options: string[],
-  isDisabled: boolean;
-  onClose?: () => void;
+  isDisabled?: boolean;
+  changeValue?: (name: string) => Promise<void>;
 
 };
 
@@ -19,8 +19,7 @@ const AutocompleteSelect:React.FC<InputMarketDataFormProps> = ({
   label,
   control,
   options,
-  isDisabled,
-  onClose,
+  changeValue
 
 }) => {
 
@@ -36,7 +35,6 @@ const AutocompleteSelect:React.FC<InputMarketDataFormProps> = ({
         return (
           <>
           <Autocomplete
-            id="autocompleteSelect"
             sx={{ width: 300 }}
             options={options}
             // loading={loading}
@@ -44,16 +42,18 @@ const AutocompleteSelect:React.FC<InputMarketDataFormProps> = ({
               value || null
             }
             onChange={(event: any, newValue) => {
-              console.log(event)
+              event.stopPropagation();
               onChange(newValue || null);
+              changeValue && changeValue(name)
             }}
-            onClose={() => {onClose && onClose()}}
-            disabled={isDisabled}
+
+            // disabled={isDisabled}
             renderInput={(params) => (
               <TextField
                 {...params}
                 label={label}
                 inputRef={ref}
+                sx={{width: '10rem'}}
         
                 InputProps={{
                   ...params.InputProps,

@@ -13,9 +13,9 @@ const Backtest: React.FC = () => {
     <h2>Select the parameters and run the backtest</h2>
     <div className="backtest__wrapper">
       <section className="backtest__form">
-        <div className='data__container'>
+        {/* <div className='data__container'> */}
           <BacktestForm></BacktestForm> 
-        </div>
+        {/* </div> */}
       </section>
 
       <div className='backtest__result'>

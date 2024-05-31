@@ -26,7 +26,7 @@ class ErrorBoundary extends Component<Props, State> {
         <div className="errorBoundary">
           <div className="message">
             <p className="content">
-              Seems like an error occured. Go to the main page
+              Seems like an error occurred. Go to the main page
             </p>
           </div>
         </div>

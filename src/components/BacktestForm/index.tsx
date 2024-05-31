@@ -7,12 +7,13 @@ import * as yup from 'yup';
 import { Button } from "@mui/material";
 import BasicDatePicker from "../BasicDatePicker";
 import InputForm from "../Input";
-// import CheckboxForm from "../Checkbox";
 import { BacktestFormValues, FormMarketData } from "../../types/types";
 import {  getDatesBT, getDefaultValues, getExchangesBT,  getSymbolsBT, getTypesBT } from "../../store/backtestFormSlice";
 import AutocompleteSelect from "../AutocompleteSelect";
 import { getDateFromJs } from "../../utils/utils";
-import { getKlines } from '../../store/backtestSlice';
+import { getBacktestData, getKlines, getMetrics } from '../../store/backtestSlice';
+import RadioButtonSelect from '../RadioButtonSelect';
+import { backtestService } from '../../api/backtestService';
 
 const BacktestForm:React.FC = () => {
 
@@ -24,7 +25,7 @@ const BacktestForm:React.FC = () => {
     backtestExchange: yup.string().required('Exchange is required').default(''),
     backtestSymbol: yup.string().required('Symbol is required').default(''),
     backtestPeriod: yup.string().required('Backtest period is required').default(''),
-    chartPeriod: yup.string().required('Chart period is required').default(''),
+    // chartPeriod: yup.string().required('Chart period is required').default(''),
     startDate: yup.string().default(''),
     endDate: yup.string().default(''),
     deposit: yup.number().moreThan(-1, 'Must to be positive').required('Field is required').default(0),
@@ -41,7 +42,6 @@ const BacktestForm:React.FC = () => {
 
    const formValues: BacktestFormValues = values;
     const {
-      // register,
       handleSubmit,
       control,
       getValues
@@ -68,38 +68,39 @@ const BacktestForm:React.FC = () => {
   
     const onSubmit: SubmitHandler<BacktestFormValues> = async (data: BacktestFormValues)=> {
      console.log('form data', data);
-      // const formattedBacktestFormValues = {
-      //   exchange: data.backtestExchange,
-      //   symbol: data.backtestSymbol,
-      //   market_data_type: data.backtestPeriod,
-      //   chart_market_data_type: data.chartPeriod,
-      //   date_start: getDateFromJs(data.startDate),
-      //   date_end: getDateFromJs(data.endDate),
-      //   deposit: String(data.deposit),
-      //   commission: String(data.commission),
-      //   price_low: String(data.priceLow),
-      //   price_high: String(data.priceHigh),
-      //   grids_count: String(data.gridsCount),
-      //   grid_trigger: String(data.gridTrigger),
-      //   grid_sl: data.gridStopLoss?  String(data.gridStopLoss) : '',
-      //   grid_tp: data.gridTakeProfit ? String(data.gridTakeProfit) : '',
-      //   sell_all: false,
-      //   // sell_all: Boolean(data.sellAll),
-      // }
+      const formattedBacktestFormValues = {
+        exchange: data.backtestExchange,
+        symbol: data.backtestSymbol,
+        market_data_type: data.backtestPeriod,
+        chart_market_data_type: data.backtestPeriod,
+        date_start: data.startDate,
+        date_end: data.endDate,
+        deposit: String(data.deposit),
+        commission: String(data.commission),
+        price_low: String(data.priceLow),
+        price_high: String(data.priceHigh),
+        grids_count: String(data.gridsCount),
+        grid_trigger: String(data.gridTrigger),
+        grid_sl: data.gridStopLoss?  String(data.gridStopLoss) : '',
+        grid_tp: data.gridTakeProfit ? String(data.gridTakeProfit) : '',
+        sell_all: false,
+        // sell_all: Boolean(data.sellAll),
+      }
 
-      // let id;
-      // try {
-      //   const response = await backtestService.backtestRun(formattedBacktestFormValues);
-      //   id = response.data.id;
-      // } catch (error) {
-      //     throw new Error ('Some backtest problems')
-      // }
-      // await dispatch(getMetrics(id));
-      // await dispatch(getBacktestData(id));
-      // buildChart();
+      let id;
+      try {
+        const response = await backtestService.backtestRun(formattedBacktestFormValues);
+        id = response.data.id;
+      } catch (error) {
+          throw new Error ('Some backtest problems')
+      }
+      await dispatch(getMetrics(id));
+      await dispatch(getBacktestData(id));
+      buildChart();
     }
 
     const changeValue = async (name: string) => {
+      console.log('name', name)
       if (name != 'backtestExchange') {
         if (name === 'startDate' || name === 'endDate') {
           buildChart();
@@ -151,7 +152,6 @@ const BacktestForm:React.FC = () => {
               maxDate={values.endDate}
             />
       <div className="backtest-form_input">
-        {/* <input {...register("deposit")} /> */}
           <InputForm control={control} name='deposit' label='Deposit'/>
           <InputForm control={control} name='commission' label='Commission'/>
           <InputForm control={control} name='priceLow' label='Price Low'/>
@@ -170,7 +170,6 @@ const BacktestForm:React.FC = () => {
             <AutocompleteSelect
               control={control}
               name='backtestExchange'
-              // label='Exchange'
               options={options.exchange}
               changeValue = {changeValue}
               />
@@ -178,26 +177,24 @@ const BacktestForm:React.FC = () => {
             <AutocompleteSelect
               control={control}
               name='backtestSymbol'
-              // label='Symbol'
               options={options.symbol}
               changeValue = {changeValue }
-              />
-             <AutocompleteSelect
-              control={control}
-              name='backtestPeriod'
-              label='Backtest Period'
-              options={options.type}
-              changeValue = {changeValue }
-              />
-              <AutocompleteSelect
+            />
+              {/* <AutocompleteSelect
               control={control}
               name='chartPeriod'
               label='ChartPeriod'
               options={options.type}
-              />
+              /> */}
+            <RadioButtonSelect
+              control={control}
+              options={options.type}
+              name={'backtestPeriod'}
+              checkedValue={values.backtestPeriod}
+              changeValue = {changeValue }
+            />
+            </div>
           </div>
-          </div>
-        {/* </div> */}
         <div className="backtest-form__checkbox"> 
           {/* <CheckboxForm control={control} label='Sel All' name='sellAll' /> */}
          </div>

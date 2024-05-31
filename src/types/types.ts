@@ -14,7 +14,7 @@ export interface BacktestFormValues {
   backtestExchange: string;
   backtestSymbol: string;
   backtestPeriod: string;
-  chartPeriod: string;
+  // chartPeriod: string;
   startDate: string;
   endDate: string;
   deposit: number;

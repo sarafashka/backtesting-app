@@ -6,6 +6,7 @@
 .backtest-form__data {
   display: flex;
   flex-direction: column;
+  height: 10rem;
 
 }
 .backtest-form_input {

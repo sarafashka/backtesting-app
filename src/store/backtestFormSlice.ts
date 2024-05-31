@@ -166,10 +166,12 @@ const backtestFormSlice = createSlice({
       const options = action.payload.data;
       state.options.type = options;
       state.values.backtestPeriod = options[options.length - 1];
+      state.values.chartPeriod = options[options.length - 1]; //TODO delete after testing
       state.isLoading = false;
     });
     builder.addCase(getDatesBT.fulfilled, (state, action) => {
       state.values.backtestPeriod = action.meta.arg.mdt;
+      state.values.chartPeriod = action.meta.arg.mdt; //TODO delete after testing
       state.options.startDate = action.payload.data.date_start;
       state.options.endDate = action.payload.data.date_end;
 

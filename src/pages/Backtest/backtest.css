@@ -1,11 +1,10 @@
 
 .backtest__result {
   display: flex;
+  position: relative;
+  top: -4.5rem;
 }
-.backtest__metrics,
-.backtest__chart {
-  /* width: 20rem; */
-  background-color: #fff;
-  border-radius: 0.7rem;
-  border: none;
+
+.backtest__metrics {
+  margin-top: 4rem;
 }

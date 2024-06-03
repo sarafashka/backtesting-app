@@ -4,6 +4,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Controller } from 'react-hook-form';
 import dayjs from 'dayjs';
+import { green } from '@mui/material/colors';
 
 interface BasicDatePickerProps  {
   label: string | null;
@@ -29,6 +30,7 @@ const BasicDatePicker:React.FC<BasicDatePickerProps> = ({
       render={({ field: { onChange, value, ref}}) => (      
       <LocalizationProvider  dateAdapter={AdapterDayjs}>
           <DatePicker 
+
            value={dayjs(value)}
            inputRef={ref}
            onChange={(date) => {
@@ -39,6 +41,8 @@ const BasicDatePicker:React.FC<BasicDatePickerProps> = ({
           format="DD.MM.YYYY"
           minDate={minDate && dayjs(minDate)}
           maxDate={maxDate && dayjs(maxDate)}
+          slotProps={{ textField: { size: 'small' } }}
+          sx={{ width: 150, zIndex:2 }}
           
         />
        </LocalizationProvider>

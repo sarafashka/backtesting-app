@@ -28,10 +28,21 @@ const InputForm:React.FC<InputFormProps> = ({
               onChange={onChange}
               error={!!error}
               helperText={error?.message}
-              variant="filled"
+              variant="outlined"
               size='small'
               type={type || 'number'}
               autoComplete='off'
+              inputProps={{
+                style: {
+                 width:90,
+              }}}
+              InputLabelProps={{
+                style: {
+                  fontSize: 12,
+                  padding: 2,
+                  width:100,
+               }}}
+            
             />
       )}
     /> 

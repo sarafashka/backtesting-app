@@ -1,3 +1,4 @@
+import './autocompleteSelect.scss';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 //import CircularProgress from '@mui/material/CircularProgress';
@@ -35,7 +36,8 @@ const AutocompleteSelect:React.FC<InputMarketDataFormProps> = ({
         return (
           <>
           <Autocomplete
-            sx={{ width: 300 }}
+            disableClearable
+            sx={{ width: 100, zIndex:2 }}
             options={options}
             // loading={loading}
             value={
@@ -46,17 +48,28 @@ const AutocompleteSelect:React.FC<InputMarketDataFormProps> = ({
               onChange(newValue || null);
               changeValue && changeValue(name)
             }}
+            ListboxProps={{
+              style: {
+                fontSize: 12,
+              }
+            }}
 
-            // disabled={isDisabled}
             renderInput={(params) => (
               <TextField
                 {...params}
                 label={label}
                 inputRef={ref}
                 sx={{width: '10rem'}}
+
         
                 InputProps={{
                   ...params.InputProps,
+                  style: {
+                    fontSize: 12,
+                    padding: 2,
+                    width:100,
+                  }
+                  
                   // endAdornment: (
                   //   <React.Fragment>
                   //     {loading ? <CircularProgress color="inherit" size={20} /> : null}

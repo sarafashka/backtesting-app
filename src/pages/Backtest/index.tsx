@@ -1,3 +1,4 @@
+import { Paper } from '@mui/material';
 import BacktestChart from '../../components/BacktestChart';
 import BacktestForm from '../../components/BacktestForm';
 import BacktestMetrics from '../../components/BacktestMetrics';
@@ -13,12 +14,10 @@ const Backtest: React.FC = () => {
     <h2>Select the parameters and run the backtest</h2>
     <div className="backtest__wrapper">
       <section className="backtest__form">
-        {/* <div className='data__container'> */}
           <BacktestForm></BacktestForm> 
-        {/* </div> */}
       </section>
 
-      <div className='backtest__result'>
+      <Paper className='backtest__result'>
         
       { klines && 
         <section className="backtest__chart">
@@ -30,7 +29,7 @@ const Backtest: React.FC = () => {
           <BacktestMetrics/>
         </section>
 
-      </div>
+      </Paper>
 
     </div>
     </>

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { Button } from "@mui/material";
+import { Button, Paper } from "@mui/material";
 import BasicDatePicker from "../BasicDatePicker";
 import InputForm from "../Input";
 import { BacktestFormValues, FormMarketData } from "../../types/types";
@@ -136,22 +136,7 @@ const BacktestForm:React.FC = () => {
     <>
      <form className="backtest-form" onSubmit={handleSubmit(onSubmit)}>
       <div className="backtest-form__data">
-      <div className="backtest-form_datepicker">
-            <BasicDatePicker
-              control={control}
-              name='startDate'
-              label='Start date'
-              minDate={values.startDate}
-              maxDate={values.endDate}
-            />
-            <BasicDatePicker
-              control={control}
-              name='endDate'
-              label='End date'
-              minDate={values.startDate}
-              maxDate={values.endDate}
-            />
-      <div className="backtest-form_input">
+        <Paper className="backtest-form_input">
           <InputForm control={control} name='deposit' label='Deposit'/>
           <InputForm control={control} name='commission' label='Commission'/>
           <InputForm control={control} name='priceLow' label='Price Low'/>
@@ -160,44 +145,65 @@ const BacktestForm:React.FC = () => {
           <InputForm control={control} name='gridTrigger' label='Grid Trigger'/>
           <InputForm control={control} name='gridStopLoss' label='Grid Stop Loss'/>
           <InputForm control={control} name='gridTakeProfit' label='Grid Take Profit'/>
-        </div> 
-        <div className="backtest-form__submit">
-        <Button  sx={{ width:1 }} type='submit'>Run grid backtest</Button>
-      </div>
-        </div>
 
-          <div className="backtest-form_select">
-            <AutocompleteSelect
+          <div className="backtest-form__submit">
+            <Button  sx={{ width:1 }} type='submit'>Run grid backtest</Button>
+          </div>
+        </Paper> 
+
+        <Paper className="backtest-form_chart-filters">
+        <div className="backtest-form_select">
+          <AutocompleteSelect
               control={control}
               name='backtestExchange'
               options={options.exchange}
               changeValue = {changeValue}
-              />
+          />
 
-            <AutocompleteSelect
+           <AutocompleteSelect
               control={control}
               name='backtestSymbol'
               options={options.symbol}
               changeValue = {changeValue }
-            />
+          />
               {/* <AutocompleteSelect
               control={control}
               name='chartPeriod'
               label='ChartPeriod'
               options={options.type}
               /> */}
-            <RadioButtonSelect
+          <RadioButtonSelect
               control={control}
               options={options.type}
               name={'backtestPeriod'}
               checkedValue={values.backtestPeriod}
               changeValue = {changeValue }
+          />
+        </div>
+
+        <div className="backtest-form_datepicker">
+            <BasicDatePicker
+              control={control}
+              name='startDate'
+              label='Start'
+              minDate={values.startDate}
+              maxDate={values.endDate}
             />
-            </div>
-          </div>
-        <div className="backtest-form__checkbox"> 
+            <BasicDatePicker
+              control={control}
+              name='endDate'
+              label='End'
+              minDate={values.startDate}
+              maxDate={values.endDate}
+            />
+
+        </div>
+        </Paper>
+
+      </div>
+      <div className="backtest-form__checkbox"> 
           {/* <CheckboxForm control={control} label='Sel All' name='sellAll' /> */}
-         </div>
+      </div>
     </form>
     </>
   )

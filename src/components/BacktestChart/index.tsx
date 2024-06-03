@@ -9,7 +9,8 @@ const BacktestChart: React.FC = () => {
       <Plot
       // @ts-ignore
         data={dataForChart}
-        layout={ { height: 600} }
+        layout={ { height: 600, width: 800} }
+        config={{displayModeBar: false}}
 
       />
     );

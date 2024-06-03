@@ -100,7 +100,6 @@ const BacktestForm:React.FC = () => {
     }
 
     const changeValue = async (name: string) => {
-      console.log('name', name)
       if (name != 'backtestExchange') {
         if (name === 'startDate' || name === 'endDate') {
           buildChart();
@@ -156,6 +155,7 @@ const BacktestForm:React.FC = () => {
           <AutocompleteSelect
               control={control}
               name='backtestExchange'
+              size='smallSize'
               options={options.exchange}
               changeValue = {changeValue}
           />
@@ -163,6 +163,7 @@ const BacktestForm:React.FC = () => {
            <AutocompleteSelect
               control={control}
               name='backtestSymbol'
+              size='smallSize'
               options={options.symbol}
               changeValue = {changeValue }
           />
@@ -186,6 +187,7 @@ const BacktestForm:React.FC = () => {
               control={control}
               name='startDate'
               label='Start'
+              size='small'
               minDate={values.startDate}
               maxDate={values.endDate}
             />
@@ -193,6 +195,7 @@ const BacktestForm:React.FC = () => {
               control={control}
               name='endDate'
               label='End'
+              size='small'
               minDate={values.startDate}
               maxDate={values.endDate}
             />

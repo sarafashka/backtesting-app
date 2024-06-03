@@ -11,6 +11,7 @@ interface InputMarketDataFormProps  {
   control: any,
   options: string[],
   isDisabled?: boolean;
+  size?: 'smallSize' | 'normalSize',
   changeValue?: (name: string) => Promise<void>;
 
 };
@@ -20,9 +21,22 @@ const AutocompleteSelect:React.FC<InputMarketDataFormProps> = ({
   label,
   control,
   options,
-  changeValue
+  changeValue,
+  isDisabled,
+  size
 
 }) => {
+
+  const stylesInput = size==='smallSize' 
+   ? {style: {
+    fontSize: 12,
+    padding: 1,
+    width:100,
+   }} 
+  : {style: {
+    fontSize: 16,
+    width: 200
+  }}
 
   return (
     <Controller
@@ -36,8 +50,9 @@ const AutocompleteSelect:React.FC<InputMarketDataFormProps> = ({
         return (
           <>
           <Autocomplete
-            disableClearable
             sx={{ width: 100, zIndex:2 }}
+            disableClearable
+            disabled={isDisabled}
             options={options}
             // loading={loading}
             value={
@@ -49,9 +64,7 @@ const AutocompleteSelect:React.FC<InputMarketDataFormProps> = ({
               changeValue && changeValue(name)
             }}
             ListboxProps={{
-              style: {
-                fontSize: 12,
-              }
+              ...stylesInput
             }}
 
             renderInput={(params) => (
@@ -59,17 +72,10 @@ const AutocompleteSelect:React.FC<InputMarketDataFormProps> = ({
                 {...params}
                 label={label}
                 inputRef={ref}
-                sx={{width: '10rem'}}
-
         
                 InputProps={{
                   ...params.InputProps,
-                  style: {
-                    fontSize: 12,
-                    padding: 2,
-                    width:100,
-                  }
-                  
+                  ...stylesInput
                   // endAdornment: (
                   //   <React.Fragment>
                   //     {loading ? <CircularProgress color="inherit" size={20} /> : null}

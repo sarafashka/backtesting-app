@@ -27,7 +27,6 @@ const MarketDataForm = () => {
   const marketDataFilters = useAppSelector(state => state.marketData);
   const { exchanges, symbols, mdt } = marketDataFilters;
 
-
   const {
     handleSubmit,
     reset,
@@ -47,9 +46,12 @@ const MarketDataForm = () => {
   });
 
   useEffect(() => {
-    dispatch(getExchanges());
-    dispatch(getTypes());
-  }, [dispatch]);
+    const getOptions = async() => {
+      await dispatch(getExchanges()); 
+      await dispatch(getTypes());
+    }
+    getOptions();
+  }, []);
 
   const onSubmit: SubmitHandler<MarketDataFormValues> = (data: MarketDataFormValues)=> {
       const formattedMarketData =  {
@@ -63,10 +65,12 @@ const MarketDataForm = () => {
     dispatch(getMarketData({ page: INITIAL_PAGE, perPage: INITIAL_PER_PAGE }));//change after downloadMarketData will be response new market data
     reset();
   }
-  const getSymbolsOptions = () => {
-    const selectedExchange = getValues('exchange');
-    dispatch(getSymbols(selectedExchange));
+
+ const getOptions = async (name: string) => {
+  if (name === 'exchange') {
+    await dispatch(getSymbols(getValues('exchange')));
   }
+ }
 
   return(
     <>
@@ -79,7 +83,7 @@ const MarketDataForm = () => {
               label='Exchange'
               isDisabled={exchanges.isDisabled}
               options={exchanges.options}
-              onClose={getSymbolsOptions}/>
+              changeValue={getOptions}/>
 
           <AutocompleteSelect 
               control={control}
@@ -96,8 +100,8 @@ const MarketDataForm = () => {
               options={mdt.options}/>
         </div>
          <div className="form__data_datepicker">
-          <BasicDatePicker control={control} name='startDate' label='Start date'/>
-          <BasicDatePicker control={control} name='endDate' label='End date'/>
+          <BasicDatePicker control={control} name='startDate' label='Start date' size='normal'/>
+          <BasicDatePicker control={control} name='endDate' label='End date' size='normal'/>
         </div>
       </div>
       <div className="form__submit">

@@ -4,7 +4,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Controller } from 'react-hook-form';
 import dayjs from 'dayjs';
-import { green } from '@mui/material/colors';
 
 interface BasicDatePickerProps  {
   label: string | null;
@@ -13,6 +12,7 @@ interface BasicDatePickerProps  {
   minDate?: string;
   maxDate?: string;
   isDisabled?:boolean;
+  size: 'small' | 'normal'
 
 }
 const BasicDatePicker:React.FC<BasicDatePickerProps> = ({
@@ -21,9 +21,13 @@ const BasicDatePicker:React.FC<BasicDatePickerProps> = ({
   control,
   minDate,
   maxDate,
+  size
 
 }) => {
 
+  const stylesInput = size==='small'
+    ? { width: 150, zIndex:2 }
+    : { width: 300, zIndex:2 }
   
   return (
     <Controller name={name} control={control}
@@ -42,7 +46,7 @@ const BasicDatePicker:React.FC<BasicDatePickerProps> = ({
           minDate={minDate && dayjs(minDate)}
           maxDate={maxDate && dayjs(maxDate)}
           slotProps={{ textField: { size: 'small' } }}
-          sx={{ width: 150, zIndex:2 }}
+          sx={stylesInput}
           
         />
        </LocalizationProvider>

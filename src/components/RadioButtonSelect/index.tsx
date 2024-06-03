@@ -27,7 +27,7 @@ return (
     render={({ field }) => {
       const { onChange } = field;
       return (
-        <div className="container">
+        <div className="container-tabs">
           <div className="tabs">
               {options.map((item:string, index) => 
                   { return (

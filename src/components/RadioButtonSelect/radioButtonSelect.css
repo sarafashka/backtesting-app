@@ -1,6 +1,7 @@
 .tabs {
   display: flex;
   position: relative;
+  margin-top: -0.5rem;
   background-color: #fff;
   padding: 0.75rem;
   border-radius: 99px;
@@ -10,7 +11,7 @@
   z-index: 2;
 }
 
-.container input[type="radio"] {
+.container-tabs input[type="radio"] {
   display: none;
 }
 
@@ -28,31 +29,31 @@
   transition: color 0.15s ease-in;
 }
 
-.container input[type="radio"]:checked + label {
+.container-tabs input[type="radio"]:checked + label {
   color: #185ee0;
 }
 
-.container input[id="radio-0"]:checked ~ .glider {
+.container-tabs input[id="radio-0"]:checked ~ .glider {
   transform: translateX(0);
 }
 
-.container input[id="radio-1"]:checked ~ .glider {
+.container-tabs input[id="radio-1"]:checked ~ .glider {
   transform: translateX(100%);
 }
 
-.container input[id="radio-2"]:checked ~ .glider {
+.container-tabs input[id="radio-2"]:checked ~ .glider {
   transform: translateX(200%);
 }
 
-.container input[id="radio-3"]:checked ~ .glider {
+.container-tabs input[id="radio-3"]:checked ~ .glider {
   transform: translateX(300%);
 }
 
-.container input[id="radio-4"]:checked ~ .glider {
+.container-tabs input[id="radio-4"]:checked ~ .glider {
   transform: translateX(400%);
 }
 
-.container input[id="radio-5"]:checked ~ .glider {
+.container-tabs input[id="radio-5"]:checked ~ .glider {
   transform: translateX(500%);
 } 
 /*TODO refactor with scss*/

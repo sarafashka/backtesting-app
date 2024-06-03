@@ -8,6 +8,7 @@ import { INITIAL_PAGE, INITIAL_PER_PAGE } from "../../constants/constants";
 import DataTable from "../../components/DataTable";
 import { COLUMNS } from "../../content/marketData";
 import Loader from "../../components/Modal/Loader";
+import { Paper } from "@mui/material";
 
 const MarketData = () => {
 
@@ -26,14 +27,12 @@ const MarketData = () => {
    {isLoading && <Loader open={isLoading}/>}
     <h2 className="market-data__title">Get the market data and save it in your account</h2>
     <div className="market-data__wrapper">
-      <div className="data__container">
+      <Paper className='market-data__form' >
         <MarketDataForm/>
-    </div>
-    <div className="data__container">
-       <div className="data-grid">
-          <DataTable rows={rows} columns={COLUMNS}/>
-       </div> 
-      </div>
+    </Paper>
+    <Paper className="market-data__grid">
+        <DataTable rows={rows} columns={COLUMNS}/>
+    </Paper> 
     </div>
   
     </>

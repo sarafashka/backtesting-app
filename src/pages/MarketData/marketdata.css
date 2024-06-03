@@ -2,6 +2,12 @@
   display: flex;
   justify-content: center;
   position: relative;
+  gap: 2rem
+}
+
+.market-data__form,
+.market-data__grid {
+  padding: 1rem;
 }
 
 .form__data {
@@ -22,7 +28,6 @@
   flex-direction: column;
   gap: 1rem;
   justify-content: space-between;
-  margin-top: -8px;
 }
 .form__submit {
   margin: 1rem 0;

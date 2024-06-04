@@ -27,22 +27,22 @@ const initialState: backtestFormState = {
     exchange: [],
     symbol: [],
     type: [],
-    startDate: '2024-01-01',
-    endDate: '2024-05-01',
+    startDate: '',
+    endDate: '',
   },
   values: {
     backtestExchange: '',
     backtestSymbol: '',
     backtestPeriod: '',
-    chartPeriod: '',
+    // chartPeriod: '',
     startDate: '',
     endDate: '',
-    deposit: 0,
-    commission: 0,
-    priceLow: 0,
-    priceHigh: 0,
-    gridsCount: 0,
-    gridTrigger: 0,
+    deposit: null,
+    commission: null,
+    priceLow: null,
+    priceHigh: null,
+    gridsCount: null,
+    gridTrigger: null,
     gridStopLoss: 0,
     gridTakeProfit: 0,
   },
@@ -166,12 +166,10 @@ const backtestFormSlice = createSlice({
       const options = action.payload.data;
       state.options.type = options;
       state.values.backtestPeriod = options[options.length - 1];
-      state.values.chartPeriod = options[options.length - 1]; //TODO delete after testing
       state.isLoading = false;
     });
     builder.addCase(getDatesBT.fulfilled, (state, action) => {
       state.values.backtestPeriod = action.meta.arg.mdt;
-      state.values.chartPeriod = action.meta.arg.mdt; //TODO delete after testing
       state.options.startDate = action.payload.data.date_start;
       state.options.endDate = action.payload.data.date_end;
 

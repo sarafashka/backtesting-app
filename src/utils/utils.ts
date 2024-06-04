@@ -15,17 +15,19 @@ export const getDateFromJs = (objectDate: Date): string => {
 type MetricsRows = {
   id: number;
   name: string;
-  value: number;
+  value: number | string;
 };
 
 export const formatMetricsToRows = (metrics: BacktestMetrics) => {
   const rows: MetricsRows[] = [];
   const arr = Object.entries(metrics);
   arr.forEach((item, index) => {
+    const value = item[1] ? (Number.isInteger(item[1]) ? item[1] : item[1].toFixed(2)) : 'No value';
+    console.log('metrics', item);
     const metric: MetricsRows = {
       id: index,
       name: (item[0][0].toUpperCase() + item[0].slice(1)).replace(/_/g, ' '),
-      value: Number.isInteger(item[1]) ? item[1] : item[1].toFixed(2),
+      value: value,
     };
     rows.push(metric);
   });

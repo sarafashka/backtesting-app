@@ -22,21 +22,20 @@ const BacktestForm:React.FC = () => {
   const { options, values } = backtestForm;
 
   const formSchema: yup.ObjectSchema <BacktestFormValues> = yup.object().shape({
-    backtestExchange: yup.string().required('Exchange is required').default(''),
-    backtestSymbol: yup.string().required('Symbol is required').default(''),
-    backtestPeriod: yup.string().required('Backtest period is required').default(''),
-    // chartPeriod: yup.string().required('Chart period is required').default(''),
-    startDate: yup.string().default(''),
-    endDate: yup.string().default(''),
-    deposit: yup.number().moreThan(-1, 'Must to be positive').required('Field is required').default(0),
-    commission: yup.number().moreThan(-1, 'Must to be positive').required('Field is required').default(0),
-    priceLow: yup.number().moreThan(-1, 'Must to be positive').required('Field is required').default(0),
-    priceHigh: yup.number().moreThan(-1, 'Must to be positive').required('Field is required').default(0),
-    gridsCount: yup.number().moreThan(-1, 'Must to be positive').required('Field is required').default(0),
-    gridTrigger: yup.number().moreThan(-1, 'Must to be positive').required('Field is required').default(0),
-    gridStopLoss: yup.number().moreThan(-1, 'Must to be positive').default(undefined),
-    gridTakeProfit: yup.number().moreThan(-1, 'Must to be positive').default(undefined),
-    // sellAll: yup.boolean().default(false),
+    backtestExchange: yup.string().required('Exchange is required'),
+    backtestSymbol: yup.string().required('Symbol is required'),
+    backtestPeriod: yup.string().required('Backtest period is required'),
+    // chartPeriod: yup.string().required('Chart period is required'),
+    startDate: yup.string().required(''),
+    endDate: yup.string().required(''),
+    deposit: yup.number().moreThan(-1, 'Must to be positive').nullable().required(''),
+    commission: yup.number().moreThan(-1, 'Must to be positive').nullable().required(''),
+    priceLow: yup.number().moreThan(-1, 'Must to be positive').nullable().required(''),
+    priceHigh: yup.number().moreThan(-1, 'Must to be positive').nullable().required(''),
+    gridsCount: yup.number().moreThan(-1, 'Must to be positive').nullable().required(''),
+    gridTrigger: yup.number().moreThan(-1, 'Must to be positive').nullable().required(''),
+    gridStopLoss: yup.number().moreThan(-1, 'Must to be positive'),
+    gridTakeProfit: yup.number().moreThan(-1, 'Must to be positive'),
   })
 
 
@@ -47,10 +46,9 @@ const BacktestForm:React.FC = () => {
       getValues
     } = useForm<BacktestFormValues>({
     // @ts-ignore
-      defaultValues: formSchema.cast(),
       values: formValues,
     // @ts-ignore
-      resolver: yupResolver(formSchema,{ stripUnknown: true, abortEarly: false }),
+      resolver: yupResolver(formSchema<BacktestFormValues>),
   
     });
 
@@ -60,6 +58,7 @@ const BacktestForm:React.FC = () => {
         await dispatch(getExchangesBT());
         await dispatch(getSymbolsBT());
         await dispatch(getTypesBT(getValues('backtestSymbol')));
+        await  dispatch(getDatesBT(getDataForDates()));
         buildChart();
       }
       getOptions();
@@ -86,7 +85,6 @@ const BacktestForm:React.FC = () => {
         sell_all: false,
         // sell_all: Boolean(data.sellAll),
       }
-
       let id;
       try {
         const response = await backtestService.backtestRun(formattedBacktestFormValues);
@@ -107,16 +105,19 @@ const BacktestForm:React.FC = () => {
           if (name === 'backtestSymbol') {
             await dispatch(getTypesBT(getValues('backtestSymbol')));
           }
-          const data = {
-              exchange: getValues('backtestExchange'),
-              symbol: getValues('backtestSymbol'),
-              mdt: getValues('backtestPeriod')
-          };
-          await  dispatch(getDatesBT(data));
+          await  dispatch(getDatesBT(getDataForDates()));
           }
            buildChart();  
         }                           
     }
+  
+    const getDataForDates = () => {
+      return {
+        exchange: getValues('backtestExchange'),
+        symbol: getValues('backtestSymbol'),
+        mdt: getValues('backtestPeriod')
+        }
+      }
 
   const buildChart = () => {
     const requestKlines: FormMarketData = {

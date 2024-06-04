@@ -17,12 +17,12 @@ export interface BacktestFormValues {
   // chartPeriod: string;
   startDate: string;
   endDate: string;
-  deposit: number;
-  commission: number;
-  priceLow: number;
-  priceHigh: number;
-  gridsCount: number;
-  gridTrigger: number;
+  deposit: number | null;
+  commission: number | null;
+  priceLow: number | null;
+  priceHigh: number | null;
+  gridsCount: number | null;
+  gridTrigger: number | null;
   gridStopLoss: number | undefined;
   gridTakeProfit: number | undefined;
   // sellAll: boolean | undefined;

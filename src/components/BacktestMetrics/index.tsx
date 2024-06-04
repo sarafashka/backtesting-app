@@ -5,7 +5,7 @@ import { useAppSelector } from "../../hooks/reduxTypedHooks";
 import { formatMetricsToRows } from "../../utils/utils";
 
 const columns =   [
-  { field: 'name', headerName: 'Name', width: 250 },
+  { field: 'name', headerName: 'Metric ', width: 250 },
   { field: 'value', headerName: 'Value', width: 90 },
 ]
 
@@ -21,8 +21,9 @@ const BacktestMetrics: React.FC = () => {
       <DataGrid
         getRowClassName={(params) => {
           if (params.row.name.includes('Total')) {
-          return params.row.value >=0 ? "green" : "red"; 
-          }
+            return Number(params.row.value) >=0 ? "green" : "red"; 
+  
+        }
           return "white"
         }}
         sx={{

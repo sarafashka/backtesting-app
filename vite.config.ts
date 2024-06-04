@@ -3,15 +3,22 @@ import react from '@vitejs/plugin-react';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => {
-  const config = {
-    plugins: [react()],
-    base: '/',
-  };
-
+  let base: string;
+  if (command === 'build') {
+    base = '/backtesting-app';
+  }
+  if (command === 'serve') {
+    base = '/';
+  }
   // const config = {
   //   plugins: [react()],
-  //   base: '/backtesting-app',
+  //   base: '/',
   // };
+
+  const config = {
+    plugins: [react()],
+    base: base,
+  };
 
   return config;
 });

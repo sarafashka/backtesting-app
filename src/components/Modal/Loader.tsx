@@ -1,4 +1,4 @@
-import { Backdrop, CircularProgress, colors } from "@mui/material";
+import { Backdrop, CircularProgress } from "@mui/material";
 
 interface LoaderProps {
   open: boolean;

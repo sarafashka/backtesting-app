@@ -10,11 +10,6 @@ export default defineConfig(({ command }) => {
   if (command === 'serve') {
     base = '/';
   }
-  // const config = {
-  //   plugins: [react()],
-  //   base: '/',
-  // };
-
   const config = {
     plugins: [react()],
     base: base,

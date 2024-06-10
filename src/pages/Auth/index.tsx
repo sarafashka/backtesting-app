@@ -24,10 +24,12 @@ export default function Auth() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    // const data = new FormData(event.currentTarget);
     const userData = {
-      username: String(data.get('usernameInput')),
-      password: String(data.get('passwordInput'))
+      username: 'admin',
+      password: 'ntvwru94up34u'
+      // username: String(data.get('usernameInput')),
+      // password: String(data.get('passwordInput'))
     }
     await dispatch(login(userData));
     navigate(-1);
